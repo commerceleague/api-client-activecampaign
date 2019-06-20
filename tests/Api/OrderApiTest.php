@@ -1,21 +1,17 @@
 <?php
 declare(strict_types=1);
 /**
- * Copyright © André Flitsch. All rights reserved.
- * See license.md for license details.
  */
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData\Ecommerce\Order;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Order\OrderApi;
+use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class OrderApiTest
- *
- * @package CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Order
  */
 class OrderApiTest extends TestCase
 {
@@ -29,9 +25,15 @@ class OrderApiTest extends TestCase
      */
     protected $orderApi;
 
+    protected function setUp()
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->orderApi = new OrderApi($this->resourceClient);
+    }
+
     public function testGet()
     {
-        $id       = 123;
+        $id = 123;
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
@@ -43,7 +45,7 @@ class OrderApiTest extends TestCase
 
     public function testCreate()
     {
-        $data     = ['data'];
+        $data = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -56,8 +58,8 @@ class OrderApiTest extends TestCase
 
     public function testUpdate()
     {
-        $id       = 123;
-        $data     = ['data'];
+        $id = 123;
+        $data = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -70,7 +72,7 @@ class OrderApiTest extends TestCase
 
     public function testDelete()
     {
-        $id       = 123;
+        $id = 123;
         $response = true;
 
         $this->resourceClient->expects($this->once())
@@ -79,11 +81,5 @@ class OrderApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->orderApi->delete($id));
-    }
-
-    protected function setUp()
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->orderApi       = new OrderApi($this->resourceClient);
     }
 }

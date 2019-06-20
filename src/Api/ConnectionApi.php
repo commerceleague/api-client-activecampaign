@@ -1,22 +1,16 @@
 <?php
 declare(strict_types=1);
 /**
- * Copyright © André Flitsch. All rights reserved.
- * See license.md for license details.
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Customer;
+namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
-use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
-use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
 
 /**
- * Class CustomerApi
- *
- * @package CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Customer
+ * Class ConnectionApi
  */
-class CustomerApi implements CustomerApiResourceInterface
+class ConnectionApi implements ConnectionApiResourceInterface
 {
     /**
      * @var CommonResourceClientInterface
@@ -36,7 +30,7 @@ class CustomerApi implements CustomerApiResourceInterface
      */
     public function create(array $data): array
     {
-        return $this->resourceClient->createResource('api/3/ecomCustomers', [], $data);
+        return $this->resourceClient->createResource('api/3/connections', [], $data);
     }
 
     /**
@@ -44,7 +38,7 @@ class CustomerApi implements CustomerApiResourceInterface
      */
     public function delete(int $id): bool
     {
-        return $this->resourceClient->deleteResource('api/3/ecomCustomers/%s', [$id]);
+        return $this->resourceClient->deleteResource('api/3/connections/%s', [$id]);
     }
 
     /**
@@ -52,7 +46,7 @@ class CustomerApi implements CustomerApiResourceInterface
      */
     public function get(int $id): array
     {
-        return $this->resourceClient->getResource('api/3/ecomCustomers/%s', [$id]);
+        return $this->resourceClient->getResource('api/3/connections/%s', [$id]);
     }
 
     /**
@@ -60,6 +54,6 @@ class CustomerApi implements CustomerApiResourceInterface
      */
     public function update(int $id, array $data = []): array
     {
-        return $this->resourceClient->updateResource('api/3/ecomCustomers/%s', [$id], $data);
+        return $this->resourceClient->updateResource('api/3/connections/%s', [$id], $data);
     }
 }

@@ -5,7 +5,11 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi;
 
+use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApi;
+use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
+use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
+use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClient;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClient;
@@ -114,7 +118,11 @@ class ClientBuilder
         $resourceClient = $this->setUpCommonClient($configuration);
 
         return new CommonClient(
-            new ContactApi($resourceClient)
+            new AbandonedCartApi($resourceClient),
+            new ConnectionApi($resourceClient),
+            new ContactApi($resourceClient),
+            new CustomerApi($resourceClient),
+            new OrderApi($resourceClient)
         );
     }
 

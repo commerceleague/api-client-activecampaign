@@ -9,6 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * Class ContactApiTest
  */
 class ContactApiTest extends TestCase
 {

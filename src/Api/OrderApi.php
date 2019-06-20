@@ -1,20 +1,14 @@
 <?php
 declare(strict_types=1);
 /**
- * Copyright © André Flitsch. All rights reserved.
- * See license.md for license details.
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Order;
+namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
-use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
-use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
 
 /**
  * Class OrderApi
- *
- * @package CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Order
  */
 class OrderApi implements OrderApiResourceInterface
 {

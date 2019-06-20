@@ -3,7 +3,7 @@ declare(strict_types=1);
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Api\DeepData;
+namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\Operation\CreatableResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\Operation\DeletableResourceInterface;
@@ -19,5 +19,4 @@ interface ConnectionApiResourceInterface extends
     UpdatableResourceInterface,
     DeletableResourceInterface
 {
-
 }

@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\DeepData\ConnectionApi;
+use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * Class ConnectionApiTest
  */
 class ConnectionApiTest extends TestCase
 {
-
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -23,9 +23,15 @@ class ConnectionApiTest extends TestCase
      */
     protected $connectionApi;
 
+    protected function setUp()
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->connectionApi = new ConnectionApi($this->resourceClient);
+    }
+
     public function testGet()
     {
-        $id       = 123;
+        $id = 123;
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
@@ -37,7 +43,7 @@ class ConnectionApiTest extends TestCase
 
     public function testCreate()
     {
-        $data     = ['data'];
+        $data = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -50,8 +56,8 @@ class ConnectionApiTest extends TestCase
 
     public function testUpdate()
     {
-        $id       = 123;
-        $data     = ['data'];
+        $id = 123;
+        $data = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -64,7 +70,7 @@ class ConnectionApiTest extends TestCase
 
     public function testDelete()
     {
-        $id       = 123;
+        $id = 123;
         $response = true;
 
         $this->resourceClient->expects($this->once())
@@ -73,11 +79,5 @@ class ConnectionApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->connectionApi->delete($id));
-    }
-
-    protected function setUp()
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->connectionApi  = new ConnectionApi($this->resourceClient);
     }
 }

@@ -1,22 +1,16 @@
 <?php
 declare(strict_types=1);
 /**
- * Copyright © André Flitsch. All rights reserved.
- * See license.md for license details.
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Api\DeepData;
+namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
-use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
-use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
 
 /**
- * Class ConnectionApi
- *
- * @package CommerceLeague\ActiveCampaignApi\Api\DeepData
+ * Class CustomerApi
  */
-class ConnectionApi implements ConnectionApiResourceInterface
+class CustomerApi implements CustomerApiResourceInterface
 {
     /**
      * @var CommonResourceClientInterface
@@ -36,7 +30,7 @@ class ConnectionApi implements ConnectionApiResourceInterface
      */
     public function create(array $data): array
     {
-        return $this->resourceClient->createResource('api/3/connections', [], $data);
+        return $this->resourceClient->createResource('api/3/ecomCustomers', [], $data);
     }
 
     /**
@@ -44,7 +38,7 @@ class ConnectionApi implements ConnectionApiResourceInterface
      */
     public function delete(int $id): bool
     {
-        return $this->resourceClient->deleteResource('api/3/connections/%s', [$id]);
+        return $this->resourceClient->deleteResource('api/3/ecomCustomers/%s', [$id]);
     }
 
     /**
@@ -52,7 +46,7 @@ class ConnectionApi implements ConnectionApiResourceInterface
      */
     public function get(int $id): array
     {
-        return $this->resourceClient->getResource('api/3/connections/%s', [$id]);
+        return $this->resourceClient->getResource('api/3/ecomCustomers/%s', [$id]);
     }
 
     /**
@@ -60,6 +54,6 @@ class ConnectionApi implements ConnectionApiResourceInterface
      */
     public function update(int $id, array $data = []): array
     {
-        return $this->resourceClient->updateResource('api/3/connections/%s', [$id], $data);
+        return $this->resourceClient->updateResource('api/3/ecomCustomers/%s', [$id], $data);
     }
 }

@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData\Ecommerce\AbandonedCart;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\AbandonedCart\AbandonedCartApi;
+use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * Class AbandonedCartApiTest
  */
 class AbandonedCartApiTest extends TestCase
 {
-
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -23,9 +23,15 @@ class AbandonedCartApiTest extends TestCase
      */
     protected $abandonedCartApi;
 
+    protected function setUp()
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->abandonedCartApi = new AbandonedCartApi($this->resourceClient);
+    }
+
     public function testCreate()
     {
-        $data     = ['data'];
+        $data = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -34,11 +40,5 @@ class AbandonedCartApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->abandonedCartApi->create($data));
-    }
-
-    protected function setUp()
-    {
-        $this->resourceClient   = $this->createMock(CommonResourceClientInterface::class);
-        $this->abandonedCartApi = new AbandonedCartApi($this->resourceClient);
     }
 }
