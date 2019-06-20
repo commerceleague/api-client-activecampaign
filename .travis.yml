@@ -1,0 +1,21 @@
+language: php
+
+php:
+    - 7.2
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+
+before_install:
+    - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - composer self-update --no-interaction
+
+install:
+    - composer install --prefer-dist --no-interaction
+
+script:
+    - php -d error_reporting="E_ALL" bin/phpunit -c phpunit.xml.dist
+
+notifications:
+    email: false
