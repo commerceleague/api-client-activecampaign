@@ -1,0 +1,110 @@
+<?php
+declare(strict_types=1);
+/**
+ */
+
+namespace CommerceLeague\ActiveCampaignApi\Client;
+
+use CommerceLeague\ActiveCampaignApi\Routing\UriGeneratorInterface;
+
+/**
+ * Class CommonResourceClient
+ */
+class CommonResourceClient implements CommonResourceClientInterface
+{
+    /**
+     * @var HttpClientInterface
+     */
+    private $httpClient;
+
+    /**
+     * @var UriGeneratorInterface
+     */
+    private $uriGenerator;
+
+    /**
+     * @param HttpClientInterface $httpClient
+     * @param UriGeneratorInterface $uriGenerator
+     */
+    public function __construct(
+        HttpClientInterface $httpClient,
+        UriGeneratorInterface $uriGenerator
+    ) {
+        $this->httpClient = $httpClient;
+        $this->uriGenerator = $uriGenerator;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getResource(string $uri, array $uriParameters = [], array $queryParameters = []): array
+    {
+        $uri = $this->uriGenerator->generate($uri, $uriParameters, $queryParameters);
+        $response = $this->httpClient->sendRequest(
+            'GET',
+            $uri,
+            ['Accept' => 'application/json']
+        );
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createResource(string $uri, array $uriParameters = [], array $body = []): array
+    {
+        $uri = $this->uriGenerator->generate($uri, $uriParameters);
+        $response = $this->httpClient->sendRequest(
+            'POST',
+            $uri,
+            ['Content-Type' => 'application/json'],
+            json_encode($body)
+        );
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateResource(string $uri, array $uriParameters = [], array $body = []): array
+    {
+        $uri = $this->uriGenerator->generate($uri, $uriParameters);
+        $response = $this->httpClient->sendRequest(
+            'PUT',
+            $uri,
+            ['Content-Type' => 'application/json'],
+            json_encode($body)
+        );
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function upsertResource(string $uri, array $uriParameters = [], array $body = []): array
+    {
+        $uri = $this->uriGenerator->generate($uri, $uriParameters);
+        $response = $this->httpClient->sendRequest(
+            'POST',
+            $uri,
+            ['Content-Type' => 'application/json'],
+            json_encode($body)
+        );
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteResource(string $uri, array $uriParameters = []): bool
+    {
+        $uri = $this->uriGenerator->generate($uri, $uriParameters);
+        $response = $this->httpClient->sendRequest('DELETE', $uri);
+
+        return $response->getStatusCode() === 200;
+    }
+}
