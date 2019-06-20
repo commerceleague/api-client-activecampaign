@@ -18,5 +18,4 @@ interface OrderApiResourceInterface extends
     UpdatableResourceInterface,
     DeletableResourceInterface
 {
-
 }

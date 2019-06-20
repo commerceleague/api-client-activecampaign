@@ -219,6 +219,4 @@ class CommonResourceClientTest extends TestCase
             $this->commonResourceClient->deleteResource($uri, $uriParameters)
         );
     }
-
-
 }

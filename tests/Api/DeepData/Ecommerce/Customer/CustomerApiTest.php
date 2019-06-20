@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 class CustomerApiTest extends TestCase
 {
-
     /**
      * @var MockObject|CommonResourceClientInterface
      */

@@ -18,7 +18,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
  */
 class CustomerApi implements CustomerApiResourceInterface
 {
-
     /**
      * @var CommonResourceClientInterface
      */
@@ -27,9 +26,7 @@ class CustomerApi implements CustomerApiResourceInterface
     /**
      * @param CommonResourceClientInterface $resourceClient
      */
-    public function __construct(
-        CommonResourceClientInterface $resourceClient
-    )
+    public function __construct(CommonResourceClientInterface $resourceClient)
     {
         $this->resourceClient = $resourceClient;
     }

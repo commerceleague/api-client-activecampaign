@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 class OrderApiTest extends TestCase
 {
-
     /**
      * @var MockObject|CommonResourceClientInterface
      */

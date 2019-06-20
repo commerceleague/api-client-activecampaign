@@ -18,7 +18,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
  */
 class AbandonedCartApi implements AbandonedCartApiResourceInterface
 {
-
     /**
      * @var CommonResourceClientInterface
      */
@@ -27,9 +26,7 @@ class AbandonedCartApi implements AbandonedCartApiResourceInterface
     /**
      * @param CommonResourceClientInterface $resourceClient
      */
-    public function __construct(
-        CommonResourceClientInterface $resourceClient
-    )
+    public function __construct(CommonResourceClientInterface $resourceClient)
     {
         $this->resourceClient = $resourceClient;
     }
@@ -41,5 +38,4 @@ class AbandonedCartApi implements AbandonedCartApiResourceInterface
     {
         return $this->resourceClient->createResource('api/3/ecomOrders', [], $data);
     }
-
 }

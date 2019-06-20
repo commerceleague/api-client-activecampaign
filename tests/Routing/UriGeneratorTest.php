@@ -16,7 +16,9 @@ class UriGeneratorTest extends TestCase
         $this->assertEquals(
             'http://example.com/path/%25param1/%24param2?query1=value1&query2=value2',
             $uriGenerator->generate(
-                'path/%s/%s', ['%param1', '$param2'], ['query1' => 'value1', 'query2' => 'value2']
+                'path/%s/%s',
+                ['%param1', '$param2'],
+                ['query1' => 'value1', 'query2' => 'value2']
             )
         );
     }

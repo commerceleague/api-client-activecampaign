@@ -40,7 +40,7 @@ class UriGenerator implements UriGeneratorInterface
                 '',
                 '&',
                 PHP_QUERY_RFC3986
-                );
+            );
         }
 
         return $uri;

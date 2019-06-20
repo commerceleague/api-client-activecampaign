@@ -20,9 +20,8 @@ class ContactApi implements ContactApiResourceInterface
     /**
      * @param CommonResourceClientInterface $resourceClient
      */
-    public function __construct(
-        CommonResourceClientInterface $resourceClient
-    ) {
+    public function __construct(CommonResourceClientInterface $resourceClient)
+    {
         $this->resourceClient = $resourceClient;
     }
 

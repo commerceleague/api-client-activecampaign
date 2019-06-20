@@ -23,5 +23,4 @@ interface CustomerApiResourceInterface extends
     UpdatableResourceInterface,
     DeletableResourceInterface
 {
-
 }
