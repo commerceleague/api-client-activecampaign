@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
-use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 
 /**
  * Class ContactApi
