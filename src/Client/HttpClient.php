@@ -19,7 +19,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @var ClientInterface
      */
-    protected $httpClient;
+    protected $baseHttpClient;
 
     /**
      * @var RequestFactoryInterface
@@ -37,16 +37,16 @@ class HttpClient implements HttpClientInterface
     private $streamFactory;
 
     /**
-     * @param ClientInterface $httpClient
+     * @param ClientInterface $baseHttpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface $streamFactory
      */
     public function __construct(
-        ClientInterface $httpClient,
+        ClientInterface $baseHttpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory
     ) {
-        $this->httpClient = $httpClient;
+        $this->baseHttpClient = $baseHttpClient;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
         $this->httpExceptionHandler = new HttpExceptionHandler();
@@ -71,7 +71,7 @@ class HttpClient implements HttpClientInterface
             $request = $request->withHeader($header, $content);
         }
 
-        $response = $this->httpClient->sendRequest($request);
+        $response = $this->baseHttpClient->sendRequest($request);
         $response = $this->httpExceptionHandler->transformResponseToException($request, $response);
 
         return $response;
