@@ -3,7 +3,7 @@ declare(strict_types=1);
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Client\test;
+namespace CommerceLeague\ActiveCampaignApi\tests\Client;
 
 use CommerceLeague\ActiveCampaignApi\Client\HttpExceptionHandler;
 use CommerceLeague\ActiveCampaignApi\Exception\BadRequestHttpException;

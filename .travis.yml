@@ -15,7 +15,8 @@ install:
     - composer install --prefer-dist --no-interaction
 
 script:
-    - php -d error_reporting="E_ALL" vendor/bin/phpunit -c phpunit.xml.dist
+    - php vendor/bin/phpunit -c phpunit.xml.dist
+    - php vendor/bin/phpstan analyse -l 4 src tests
 
 notifications:
     email: false

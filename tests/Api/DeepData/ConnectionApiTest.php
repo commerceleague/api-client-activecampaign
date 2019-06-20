@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepData;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData;
 
 use CommerceLeague\ActiveCampaignApi\Api\DeepData\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;

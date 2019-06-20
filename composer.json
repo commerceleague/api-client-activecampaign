@@ -16,6 +16,7 @@
     "require-dev": {
         "http-interop/http-factory-guzzle": "^1.0",
         "php-http/guzzle6-adapter": "^2.0",
+        "phpstan/phpstan": "^0.11.8",
         "phpunit/phpunit": "~6.5.0"
     },
     "license": "MIT",
@@ -26,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CommerceLeague\\ActiveCampaignApi\\": "tests/"
+            "CommerceLeague\\ActiveCampaignApi\\tests\\": "tests/"
         }
     },
     "suggest": {

@@ -5,7 +5,7 @@ declare(strict_types=1);
  * See license.md for license details.
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepData\Ecommerce\Customer;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData\Ecommerce\Customer;
 
 use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\Customer\CustomerApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;

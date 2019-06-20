@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\Api\tests;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;

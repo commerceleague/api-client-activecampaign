@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepData\Ecommerce\AbandonedCart;
+namespace CommerceLeague\ActiveCampaignApi\tests\Api\DeepData\Ecommerce\AbandonedCart;
 
 use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\AbandonedCart\AbandonedCartApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;

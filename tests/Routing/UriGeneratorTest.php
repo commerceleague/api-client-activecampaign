@@ -2,7 +2,7 @@
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\Routing\tests;
+namespace CommerceLeague\ActiveCampaignApi\tests\Routing;
 
 use CommerceLeague\ActiveCampaignApi\Routing\UriGenerator;
 use PHPUnit\Framework\TestCase;
