@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepDat\Ecommerce;
+namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepData\Ecommerce\AbandonedCart;
 
-use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\AbandonedCartApi;
+use CommerceLeague\ActiveCampaignApi\Api\DeepData\Ecommerce\AbandonedCart\AbandonedCartApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
