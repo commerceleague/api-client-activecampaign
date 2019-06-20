@@ -12,7 +12,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-license]: https://img.shields.io/github/license/commerceleague/api-client-activecampaign.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/commerceleague/api-client-activecampaign/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/quality/g/commerceleague/api-client-activecampaign/master.svg
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/quality/g/commerceleague/api-client-activecampaign/master.svg?style=flat-square
 
 [link-travis]: https://travis-ci.org/commerceleague/api-client-activecampaign.svg?branch=master
 [link-scrutinizer]: https://scrutinizer-ci.com/g/commerceleague/api-client-activecampaign/?branch=master
