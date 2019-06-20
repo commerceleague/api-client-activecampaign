@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi\Client;
 
-use CommerceLeague\ActiveCampaignApi\Security\Authentication;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -17,11 +16,6 @@ use Psr\Http\Message\StreamInterface;
  */
 class HttpClient implements HttpClientInterface
 {
-    /**
-     * @var Authentication
-     */
-    private $authentication;
-
     /**
      * @var ClientInterface
      */
@@ -43,18 +37,15 @@ class HttpClient implements HttpClientInterface
     private $streamFactory;
 
     /**
-     * @param Authentication $authentication
      * @param ClientInterface $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface $streamFactory
      */
     public function __construct(
-        Authentication $authentication,
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory
     ) {
-        $this->authentication = $authentication;
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;

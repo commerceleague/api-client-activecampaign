@@ -7,11 +7,10 @@ namespace CommerceLeague\ActiveCampaignApi;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
-use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedHttpClient;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClient;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClient;
+use CommerceLeague\ActiveCampaignApi\Configuration\CommonConfiguration;
 use CommerceLeague\ActiveCampaignApi\Routing\UriGenerator;
-use CommerceLeague\ActiveCampaignApi\Security\Authentication;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
@@ -19,15 +18,10 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 /**
- * Class CommonClientBuilder
+ * Class ClientBuilder
  */
-class CommonClientBuilder
+class ClientBuilder
 {
-    /**
-     * @var string
-     */
-    private $baseUri;
-
     /**
      * @var null|ClientInterface
      */
@@ -44,14 +38,6 @@ class CommonClientBuilder
     private $streamFactory;
 
     /**
-     * @param string $baseUri
-     */
-    public function __construct(string $baseUri)
-    {
-        $this->baseUri = $baseUri;
-    }
-
-    /**
      * @return ClientInterface
      */
     public function getHttpClient(): ClientInterface
@@ -65,7 +51,7 @@ class CommonClientBuilder
 
     /**
      * @param ClientInterface $httpClient
-     * @return CommonClientBuilder
+     * @return ClientBuilder
      */
     public function setHttpClient(ClientInterface $httpClient): self
     {
@@ -87,7 +73,7 @@ class CommonClientBuilder
 
     /**
      * @param RequestFactoryInterface $requestFactory
-     * @return CommonClientBuilder
+     * @return ClientBuilder
      */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
     {
@@ -109,7 +95,7 @@ class CommonClientBuilder
 
     /**
      * @param StreamFactoryInterface $streamFactory
-     * @return CommonClientBuilder
+     * @return ClientBuilder
      */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
     {
@@ -118,13 +104,14 @@ class CommonClientBuilder
     }
 
     /**
+     * @param string $baseUri
      * @param string $token
      * @return CommonClient
      */
-    public function build(string $token): CommonClient
+    public function buildCommonClient(string $baseUri, string $token): CommonClient
     {
-        $authentication = Authentication::fromToken($token);
-        $resourceClient = $this->setUp($authentication);
+        $configuration = CommonConfiguration::build($baseUri, $token);
+        $resourceClient = $this->setUpCommonClient($configuration);
 
         return new CommonClient(
             new ContactApi($resourceClient)
@@ -132,20 +119,19 @@ class CommonClientBuilder
     }
 
     /**
-     * @param Authentication $authentication
+     * @param CommonConfiguration $configuration
      * @return CommonResourceClient
      */
-    private function setUp(Authentication $authentication): CommonResourceClient
+    private function setUpCommonClient(CommonConfiguration $configuration): CommonResourceClient
     {
-        $uriGenerator = new UriGenerator($this->baseUri);
+        $uriGenerator = new UriGenerator($configuration->getBaseUri());
         $httpClient = new HttpClient(
-            $authentication,
             $this->getHttpClient(),
             $this->getRequestFactory(),
             $this->getStreamFactory()
         );
 
-        $authenticatedHttpClient = new AuthenticatedCommonClient($authentication, $httpClient);
+        $authenticatedHttpClient = new AuthenticatedCommonClient($configuration, $httpClient);
         return new CommonResourceClient($authenticatedHttpClient, $uriGenerator);
     }
 }

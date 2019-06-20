@@ -6,12 +6,11 @@ declare(strict_types=1);
 namespace CommerceLeague\ActiveCampaignApi;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
-use CommerceLeague\ActiveCampaignApi\Security\Authentication;
 
 /**
  * Class CommonClient
  */
-class CommonClient
+class CommonClient implements CommonClientInterface
 {
     /**
      * @var ContactApiResourceInterface
@@ -28,7 +27,7 @@ class CommonClient
     }
 
     /**
-     * @return ContactApiResourceInterface
+     * @inheritDoc
      */
     public function getContactApi(): ContactApiResourceInterface
     {

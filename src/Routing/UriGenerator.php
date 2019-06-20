@@ -31,7 +31,19 @@ class UriGenerator implements UriGeneratorInterface
     public function generate(string $path, array $uriParameters = [], array $queryParameters = []): string
     {
         $uriParameters = $this->encodeUriParameters($uriParameters);
-        return $this->baseUri . '/' . vsprintf(ltrim($path, '/'), $uriParameters);
+
+        $uri = $this->baseUri . '/' . vsprintf(ltrim($path, '/'), $uriParameters);
+
+        if (!empty($queryParameters)) {
+            $uri .= '?' . http_build_query(
+                $queryParameters,
+                '',
+                '&',
+                PHP_QUERY_RFC3986
+                );
+        }
+
+        return $uri;
     }
 
     /**
