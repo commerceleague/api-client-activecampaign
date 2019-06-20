@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi\Api\tests\DeepData;
 
-use CommerceLeague\ActiveCampaignApi\Api\DeepData\AbandonedCartApi;
+use CommerceLeague\ActiveCampaignApi\Api\DeepData\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -19,9 +19,9 @@ class ConnectionApiTest extends TestCase
     protected $resourceClient;
 
     /**
-     * @var ContactApi
+     * @var ConnectionApi
      */
-    protected $contactApi;
+    protected $connectionApi;
 
     public function testGet()
     {
@@ -32,7 +32,7 @@ class ConnectionApiTest extends TestCase
             ->with('api/3/connections/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->contactApi->get($id));
+        $this->assertEquals($response, $this->connectionApi->get($id));
     }
 
     public function testCreate()
@@ -45,7 +45,7 @@ class ConnectionApiTest extends TestCase
             ->with('api/3/connections', [], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->contactApi->create($data));
+        $this->assertEquals($response, $this->connectionApi->create($data));
     }
 
     public function testUpdate()
@@ -59,7 +59,7 @@ class ConnectionApiTest extends TestCase
             ->with('api/3/connections/%s', [$id], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->contactApi->update($id, $data));
+        $this->assertEquals($response, $this->connectionApi->update($id, $data));
     }
 
     public function testDelete()
@@ -72,12 +72,12 @@ class ConnectionApiTest extends TestCase
             ->with('api/3/connections/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->contactApi->delete($id));
+        $this->assertEquals($response, $this->connectionApi->delete($id));
     }
 
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->contactApi     = new AbandonedCartApi($this->resourceClient);
+        $this->connectionApi  = new ConnectionApi($this->resourceClient);
     }
 }
