@@ -15,7 +15,7 @@ install:
     - composer install --prefer-dist --no-interaction
 
 script:
-    - php -d error_reporting="E_ALL" bin/phpunit -c phpunit.xml.dist
+    - php -d error_reporting="E_ALL" vendor/bin/phpunit -c phpunit.xml.dist
 
 notifications:
     email: false

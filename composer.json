@@ -28,5 +28,8 @@
         "psr-4": {
             "CommerceLeague\\ActiveCampaignApi\\": "tests/"
         }
+    },
+    "suggest": {
+        "php-http/guzzle6-adapter": "In order to use Guzzle v6 as the HTTP client"
     }
 }
