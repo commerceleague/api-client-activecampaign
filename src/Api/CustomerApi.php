@@ -6,6 +6,10 @@ declare(strict_types=1);
 namespace CommerceLeague\ActiveCampaignApi\Api;
 
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\PageInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactoryInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorInterface;
 
 /**
  * Class CustomerApi
@@ -18,11 +22,28 @@ class CustomerApi implements CustomerApiResourceInterface
     private $resourceClient;
 
     /**
-     * @param CommonResourceClientInterface $resourceClient
+     * @var PageFactoryInterface
      */
-    public function __construct(CommonResourceClientInterface $resourceClient)
-    {
+    private $pageFactory;
+
+    /**
+     * @var ResourceCursorFactoryInterface
+     */
+    private $cursorFactory;
+
+    /**
+     * @param CommonResourceClientInterface $resourceClient
+     * @param PageFactoryInterface $pageFactory
+     * @param ResourceCursorFactoryInterface $cursorFactory
+     */
+    public function __construct(
+        CommonResourceClientInterface $resourceClient,
+        PageFactoryInterface $pageFactory,
+        ResourceCursorFactoryInterface $cursorFactory
+    ) {
         $this->resourceClient = $resourceClient;
+        $this->pageFactory = $pageFactory;
+        $this->cursorFactory = $cursorFactory;
     }
 
     /**
@@ -31,6 +52,31 @@ class CustomerApi implements CustomerApiResourceInterface
     public function create(array $data): array
     {
         return $this->resourceClient->createResource('api/3/ecomCustomers', [], $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function listPerPage(int $limit = 100, int $offset = 0, array $queryParameters = []): PageInterface
+    {
+        $response = $this->resourceClient->getResources(
+            'api/3/ecomCustomers',
+            [],
+            $limit,
+            $offset,
+            $queryParameters
+        );
+
+        return $this->pageFactory->createPage($this, $response['connections'], $response['meta']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function all(int $limit = 100, array $queryParameters = []): ResourceCursorInterface
+    {
+        $firstPage = $this->listPerPage($limit, 0, $queryParameters);
+        return $this->cursorFactory->createCursor($limit, $firstPage);
     }
 
     /**

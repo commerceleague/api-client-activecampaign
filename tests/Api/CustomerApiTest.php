@@ -7,6 +7,8 @@ namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +23,16 @@ class CustomerApiTest extends TestCase
     protected $resourceClient;
 
     /**
+     * @var MockObject|PageFactoryInterface
+     */
+    protected $pageFactory;
+
+    /**
+     * @var MockObject|ResourceCursorFactoryInterface
+     */
+    protected $cursorFactory;
+
+    /**
      * @var CustomerApi
      */
     protected $customerApi;
@@ -28,7 +40,13 @@ class CustomerApiTest extends TestCase
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->customerApi = new CustomerApi($this->resourceClient);
+        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
+        $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
+        $this->customerApi = new CustomerApi(
+            $this->resourceClient,
+            $this->pageFactory,
+            $this->cursorFactory
+        );
     }
 
     public function testGet()
