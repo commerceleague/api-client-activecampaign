@@ -24,7 +24,7 @@ class Page implements PageInterface
     private $httpClient;
 
     /**
-     * @var callable
+     * @var ListableResourceInterface
      */
     private $listableResource;
 

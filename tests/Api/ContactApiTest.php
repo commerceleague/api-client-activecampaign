@@ -5,6 +5,8 @@ namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -19,6 +21,16 @@ class ContactApiTest extends TestCase
     protected $resourceClient;
 
     /**
+     * @var MockObject|PageFactoryInterface
+     */
+    protected $pageFactory;
+
+    /**
+     * @var MockObject|ResourceCursorFactoryInterface
+     */
+    protected $cursorFactory;
+
+    /**
      * @var ContactApi
      */
     protected $contactApi;
@@ -26,7 +38,13 @@ class ContactApiTest extends TestCase
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->contactApi = new ContactApi($this->resourceClient);
+        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
+        $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
+        $this->contactApi = new ContactApi(
+            $this->resourceClient,
+            $this->pageFactory,
+            $this->cursorFactory
+        );
     }
 
     public function testGet()
