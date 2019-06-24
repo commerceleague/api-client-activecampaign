@@ -23,6 +23,22 @@ interface CommonResourceClientInterface
     /**
      * @param string $uri
      * @param array $uriParameters
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param array $queryParameters
+     * @return array
+     */
+    public function getResources(
+        string $uri,
+        array $uriParameters = [],
+        ?int $limit = 20,
+        ?int $offset = 0,
+        array $queryParameters = []
+    ): array;
+
+    /**
+     * @param string $uri
+     * @param array $uriParameters
      * @param array $body
      * @return array
      * @throws HttpException

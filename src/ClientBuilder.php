@@ -14,6 +14,8 @@ use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClient;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClient;
 use CommerceLeague\ActiveCampaignApi\Configuration\CommonConfiguration;
+use CommerceLeague\ActiveCampaignApi\Paginator\PageFactory;
+use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactory;
 use CommerceLeague\ActiveCampaignApi\Routing\UriGenerator;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
@@ -115,22 +117,22 @@ class ClientBuilder
     public function buildCommonClient(string $baseUri, string $token): CommonClient
     {
         $configuration = CommonConfiguration::build($baseUri, $token);
-        $resourceClient = $this->setUpCommonClient($configuration);
+        list($resourceClient, $pagFactory, $cursorFactory) = $this->setUpCommonClient($configuration);
 
         return new CommonClient(
             new AbandonedCartApi($resourceClient),
-            new ConnectionApi($resourceClient),
-            new ContactApi($resourceClient),
-            new CustomerApi($resourceClient),
-            new OrderApi($resourceClient)
+            new ConnectionApi($resourceClient, $pagFactory, $cursorFactory),
+            new ContactApi($resourceClient, $pagFactory, $cursorFactory),
+            new CustomerApi($resourceClient, $pagFactory, $cursorFactory),
+            new OrderApi($resourceClient, $pagFactory, $cursorFactory)
         );
     }
 
     /**
      * @param CommonConfiguration $configuration
-     * @return CommonResourceClient
+     * @return array
      */
-    private function setUpCommonClient(CommonConfiguration $configuration): CommonResourceClient
+    private function setUpCommonClient(CommonConfiguration $configuration): array
     {
         $uriGenerator = new UriGenerator($configuration->getBaseUri());
         $httpClient = new HttpClient(
@@ -140,6 +142,10 @@ class ClientBuilder
         );
 
         $authenticatedHttpClient = new AuthenticatedCommonClient($configuration, $httpClient);
-        return new CommonResourceClient($authenticatedHttpClient, $uriGenerator);
+        $resourceClient = new CommonResourceClient($authenticatedHttpClient, $uriGenerator);
+        $pageFactory = new PageFactory($authenticatedHttpClient);
+        $cursorFactory = new ResourceCursorFactory();
+
+        return [$resourceClient, $pageFactory, $cursorFactory];
     }
 }

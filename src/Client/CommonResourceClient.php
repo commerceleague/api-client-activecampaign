@@ -40,6 +40,7 @@ class CommonResourceClient implements CommonResourceClientInterface
     public function getResource(string $uri, array $uriParameters = [], array $queryParameters = []): array
     {
         $uri = $this->uriGenerator->generate($uri, $uriParameters, $queryParameters);
+
         $response = $this->httpClient->sendRequest(
             'GET',
             $uri,
@@ -47,6 +48,27 @@ class CommonResourceClient implements CommonResourceClientInterface
         );
 
         return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getResources(
+        string $uri,
+        array $uriParameters = [],
+        ?int $limit = 20,
+        ?int $offset = 0,
+        array $queryParameters = []
+    ): array {
+        if ($limit !== null) {
+            $queryParameters['limit'] = $limit;
+        }
+
+        if ($offset !== null) {
+            $queryParameters['offset'] = $offset;
+        }
+
+        return $this->getResource($uri, $uriParameters, $queryParameters);
     }
 
     /**

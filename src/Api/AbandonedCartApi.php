@@ -12,6 +12,9 @@ use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
  */
 class AbandonedCartApi implements AbandonedCartApiResourceInterface
 {
+    protected const ABANDONED_CARTS_URI = 'api/3/ecomOrders';
+
+
     /**
      * @var CommonResourceClientInterface
      */
@@ -30,6 +33,6 @@ class AbandonedCartApi implements AbandonedCartApiResourceInterface
      */
     public function create(array $data): array
     {
-        return $this->resourceClient->createResource('api/3/ecomOrders', [], $data);
+        return $this->resourceClient->createResource(self::ABANDONED_CARTS_URI, [], $data);
     }
 }
