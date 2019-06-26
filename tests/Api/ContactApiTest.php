@@ -5,6 +5,7 @@ namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\Page;
 use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
 use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -57,6 +58,80 @@ class ContactApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->contactApi->get($id));
+    }
+
+    public function testListPerPage()
+    {
+        $limit = 55;
+        $offset = 10;
+        $queryParameters = ['query' => 'param'];
+
+        $response = [
+            'contacts' => [
+                ['first contact'],
+                ['second contact']
+            ],
+            'meta' => [
+                'total' => 1000
+            ]
+        ];
+
+        $this->resourceClient->expects($this->once())
+            ->method('getResources')
+            ->with(
+                'api/3/contacts',
+                [],
+                $limit,
+                $offset,
+                $queryParameters
+            )
+            ->willReturn($response);
+
+        $this->pageFactory->expects($this->once())
+            ->method('createPage')
+            ->with($this->contactApi, $response['contacts'], $response['meta']);
+
+        $this->contactApi->listPerPage($limit, $offset, $queryParameters);
+    }
+
+    public function testAll()
+    {
+        $limit = 55;
+        $queryParameters = ['query' => 'param'];
+        $response = [
+            'contacts' => [
+                ['first contact'],
+                ['second contact']
+            ],
+            'meta' => [
+                'total' => 1000
+            ]
+        ];
+
+        $this->resourceClient->expects($this->once())
+            ->method('getResources')
+            ->with(
+                'api/3/contacts',
+                [],
+                $limit,
+                0,
+                $queryParameters
+            )
+            ->willReturn($response);
+
+        /** @var MockObject|Page $page */
+        $page = $this->createMock(Page::class);
+
+        $this->pageFactory->expects($this->once())
+            ->method('createPage')
+            ->with($this->contactApi, $response['contacts'], $response['meta'])
+            ->willReturn($page);
+
+        $this->cursorFactory->expects($this->once())
+            ->method('createCursor')
+            ->with($limit, $page);
+
+        $this->contactApi->all($limit, $queryParameters);
     }
 
     public function testCreate()

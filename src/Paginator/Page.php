@@ -109,6 +109,6 @@ class Page implements PageInterface
      */
     private function getPage(int $offset): PageInterface
     {
-        return $this->listableResource->listPerPage((int)$this->limit, (int)$offset);
+        return $this->listableResource->listPerPage($this->limit, $offset);
     }
 }

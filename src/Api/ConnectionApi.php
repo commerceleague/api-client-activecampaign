@@ -49,9 +49,9 @@ class ConnectionApi implements ConnectionApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function create(array $data): array
+    public function get(int $id): array
     {
-        return $this->resourceClient->createResource('api/3/connections', [], $data);
+        return $this->resourceClient->getResource('api/3/connections/%s', [$id]);
     }
 
     /**
@@ -82,17 +82,9 @@ class ConnectionApi implements ConnectionApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function create(array $data): array
     {
-        return $this->resourceClient->deleteResource('api/3/connections/%s', [$id]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function get(int $id): array
-    {
-        return $this->resourceClient->getResource('api/3/connections/%s', [$id]);
+        return $this->resourceClient->createResource('api/3/connections', [], $data);
     }
 
     /**
@@ -101,5 +93,13 @@ class ConnectionApi implements ConnectionApiResourceInterface
     public function update(int $id, array $data = []): array
     {
         return $this->resourceClient->updateResource('api/3/connections/%s', [$id], $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): bool
+    {
+        return $this->resourceClient->deleteResource('api/3/connections/%s', [$id]);
     }
 }

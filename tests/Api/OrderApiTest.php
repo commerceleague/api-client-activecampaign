@@ -7,6 +7,7 @@ namespace CommerceLeague\ActiveCampaignApi\tests\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
+use CommerceLeague\ActiveCampaignApi\Paginator\Page;
 use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
 use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorFactoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -59,6 +60,82 @@ class OrderApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->orderApi->get($id));
+    }
+
+
+    public function testListPerPage()
+    {
+        $limit = 55;
+        $offset = 10;
+        $queryParameters = ['query' => 'param'];
+
+        $response = [
+            'ecomOrders' => [
+                ['first ecomOrder'],
+                ['second ecomOrder']
+            ],
+            'meta' => [
+                'total' => 1000
+            ]
+        ];
+
+        $this->resourceClient->expects($this->once())
+            ->method('getResources')
+            ->with(
+                'api/3/ecomOrders',
+                [],
+                $limit,
+                $offset,
+                $queryParameters
+            )
+            ->willReturn($response);
+
+        $this->pageFactory->expects($this->once())
+            ->method('createPage')
+            ->with($this->orderApi, $response['ecomOrders'], $response['meta']);
+
+        $this->orderApi->listPerPage($limit, $offset, $queryParameters);
+    }
+
+    public function testAll()
+    {
+        $limit = 55;
+        $queryParameters = ['query' => 'param'];
+
+        $response = [
+            'ecomOrders' => [
+                ['first ecomOrder'],
+                ['second ecomOrder']
+            ],
+            'meta' => [
+                'total' => 1000
+            ]
+        ];
+
+        $this->resourceClient->expects($this->once())
+            ->method('getResources')
+            ->with(
+                'api/3/ecomOrders',
+                [],
+                $limit,
+                0,
+                $queryParameters
+            )
+            ->willReturn($response);
+
+        /** @var MockObject|Page $page */
+        $page = $this->createMock(Page::class);
+
+        $this->pageFactory->expects($this->once())
+            ->method('createPage')
+            ->with($this->orderApi, $response['ecomOrders'], $response['meta'])
+            ->willReturn($page);
+
+        $this->cursorFactory->expects($this->once())
+            ->method('createCursor')
+            ->with($limit, $page);
+
+        $this->orderApi->all($limit, $queryParameters);
     }
 
     public function testCreate()

@@ -49,9 +49,9 @@ class CustomerApi implements CustomerApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function create(array $data): array
+    public function get(int $id): array
     {
-        return $this->resourceClient->createResource('api/3/ecomCustomers', [], $data);
+        return $this->resourceClient->getResource('api/3/ecomCustomers/%s', [$id]);
     }
 
     /**
@@ -67,7 +67,7 @@ class CustomerApi implements CustomerApiResourceInterface
             $queryParameters
         );
 
-        return $this->pageFactory->createPage($this, $response['connections'], $response['meta']);
+        return $this->pageFactory->createPage($this, $response['ecomCustomers'], $response['meta']);
     }
 
     /**
@@ -82,17 +82,9 @@ class CustomerApi implements CustomerApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function create(array $data): array
     {
-        return $this->resourceClient->deleteResource('api/3/ecomCustomers/%s', [$id]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function get(int $id): array
-    {
-        return $this->resourceClient->getResource('api/3/ecomCustomers/%s', [$id]);
+        return $this->resourceClient->createResource('api/3/ecomCustomers', [], $data);
     }
 
     /**
@@ -101,5 +93,13 @@ class CustomerApi implements CustomerApiResourceInterface
     public function update(int $id, array $data = []): array
     {
         return $this->resourceClient->updateResource('api/3/ecomCustomers/%s', [$id], $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): bool
+    {
+        return $this->resourceClient->deleteResource('api/3/ecomCustomers/%s', [$id]);
     }
 }
