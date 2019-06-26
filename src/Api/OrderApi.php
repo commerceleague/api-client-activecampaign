@@ -49,9 +49,9 @@ class OrderApi implements OrderApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function create(array $data): array
+    public function get(int $id): array
     {
-        return $this->resourceClient->createResource('api/3/ecomOrders', [], $data);
+        return $this->resourceClient->getResource('api/3/ecomOrders/%s', [$id]);
     }
 
     /**
@@ -67,7 +67,7 @@ class OrderApi implements OrderApiResourceInterface
             $queryParameters
         );
 
-        return $this->pageFactory->createPage($this, $response['connections'], $response['meta']);
+        return $this->pageFactory->createPage($this, $response['ecomOrders'], $response['meta']);
     }
 
     /**
@@ -82,17 +82,9 @@ class OrderApi implements OrderApiResourceInterface
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function create(array $data): array
     {
-        return $this->resourceClient->deleteResource('api/3/ecomOrders/%s', [$id]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function get(int $id): array
-    {
-        return $this->resourceClient->getResource('api/3/ecomOrders/%s', [$id]);
+        return $this->resourceClient->createResource('api/3/ecomOrders', [], $data);
     }
 
     /**
@@ -101,5 +93,13 @@ class OrderApi implements OrderApiResourceInterface
     public function update(int $id, array $data = []): array
     {
         return $this->resourceClient->updateResource('api/3/ecomOrders/%s', [$id], $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): bool
+    {
+        return $this->resourceClient->deleteResource('api/3/ecomOrders/%s', [$id]);
     }
 }
