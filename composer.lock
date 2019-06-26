@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1e41a477ade8e9c98de2f25a0b38a7f",
+    "content-hash": "17df35cdce5407809d27de204be2a654",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -3481,7 +3481,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2"
+        "php": "^7.1"
     },
     "platform-dev": []
 }
