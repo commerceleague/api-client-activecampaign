@@ -58,10 +58,6 @@ class HttpExceptionHandlerTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
-
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
             ->willReturn('reason');
@@ -83,10 +79,6 @@ class HttpExceptionHandlerTest extends TestCase
         $this->response->expects($this->any())
             ->method('getBody')
             ->willReturn($stream);
-
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
 
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
@@ -110,10 +102,6 @@ class HttpExceptionHandlerTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
-
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
             ->willReturn('reason');
@@ -135,10 +123,6 @@ class HttpExceptionHandlerTest extends TestCase
         $this->response->expects($this->any())
             ->method('getBody')
             ->willReturn($stream);
-
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
 
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
@@ -162,10 +146,6 @@ class HttpExceptionHandlerTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
-
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
             ->willReturn('reason');
@@ -188,10 +168,6 @@ class HttpExceptionHandlerTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
-
         $this->response->expects($this->once())
             ->method('getReasonPhrase')
             ->willReturn('reason');
@@ -213,10 +189,6 @@ class HttpExceptionHandlerTest extends TestCase
         $this->response->expects($this->any())
             ->method('getBody')
             ->willReturn($stream);
-
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('contents');
 
         $this->response->expects($this->once())
             ->method('getReasonPhrase')

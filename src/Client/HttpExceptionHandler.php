@@ -30,48 +30,33 @@ class HttpExceptionHandler
         ResponseInterface $response
     ): ResponseInterface {
         if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
-            throw new RedirectionHttpException($this->getResponseMessage($response), $request, $response);
+            throw new RedirectionHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() === 400) {
-            throw new BadRequestHttpException($this->getResponseMessage($response), $request, $response);
+            throw new BadRequestHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() === 401) {
-            throw new UnauthorizedHttpException($this->getResponseMessage($response), $request, $response);
+            throw new UnauthorizedHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() === 404) {
-            throw new NotFoundHttpException($this->getResponseMessage($response), $request, $response);
+            throw new NotFoundHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() === 422) {
-            throw new UnprocessableEntityHttpException($this->getResponseMessage($response), $request, $response);
+            throw new UnprocessableEntityHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
-            throw new ClientErrorHttpException($this->getResponseMessage($response), $request, $response);
+            throw new ClientErrorHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         if ($response->getStatusCode() >= 500 && $response->getStatusCode() < 600) {
-            throw new ServerErrorHttpException($this->getResponseMessage($response), $request, $response);
+            throw new ServerErrorHttpException($response->getReasonPhrase(), $request, $response);
         }
 
         return $response;
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @return string
-     */
-    private function getResponseMessage(ResponseInterface $response): string
-    {
-        $responseBody = $response->getBody();
-
-        $responseBody->rewind();
-        $decodedBody = json_decode($responseBody->getContents(), true);
-        $responseBody->rewind();
-
-        return isset($decodedBody['message']) ? $decodedBody['message'] : $response->getReasonPhrase();
     }
 }
