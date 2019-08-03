@@ -9,6 +9,7 @@ use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\CommonClient;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -38,6 +39,11 @@ class CommonClientTest extends TestCase
     protected $customerApi;
 
     /**
+     * @var MockObject|DealApiResourceInterface
+     */
+    protected $dealApi;
+
+    /**
      * @var MockObject|OrderApiResourceInterface
      */
     protected $orderApi;
@@ -53,12 +59,14 @@ class CommonClientTest extends TestCase
         $this->connectionApi = $this->createMock(ConnectionApiResourceInterface::class);
         $this->contactApi = $this->createMock(ContactApiResourceInterface::class);
         $this->customerApi = $this->createMock(CustomerApiResourceInterface::class);
+        $this->dealApi = $this->createMock(DealApiResourceInterface::class);
         $this->orderApi = $this->createMock(OrderApiResourceInterface::class);
         $this->commonClient = new CommonClient(
             $this->abandonedCartApi,
             $this->connectionApi,
             $this->contactApi,
             $this->customerApi,
+            $this->dealApi,
             $this->orderApi
         );
     }
@@ -81,6 +89,11 @@ class CommonClientTest extends TestCase
     public function testGetCustomerApi()
     {
         $this->assertSame($this->customerApi, $this->commonClient->getCustomerApi());
+    }
+
+    public function testGetDealApi()
+    {
+        $this->assertSame($this->dealApi, $this->commonClient->getDealApi());
     }
 
     public function testGetOrderApi()

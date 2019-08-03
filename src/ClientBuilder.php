@@ -9,6 +9,7 @@ use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApi;
 use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
+use CommerceLeague\ActiveCampaignApi\Api\DealApi;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClient;
@@ -117,14 +118,15 @@ class ClientBuilder
     public function buildCommonClient(string $baseUri, string $token): CommonClient
     {
         $configuration = CommonConfiguration::build($baseUri, $token);
-        list($resourceClient, $pagFactory, $cursorFactory) = $this->setUpCommonClient($configuration);
+        list($resourceClient, $pageFactory, $cursorFactory) = $this->setUpCommonClient($configuration);
 
         return new CommonClient(
             new AbandonedCartApi($resourceClient),
-            new ConnectionApi($resourceClient, $pagFactory, $cursorFactory),
-            new ContactApi($resourceClient, $pagFactory, $cursorFactory),
-            new CustomerApi($resourceClient, $pagFactory, $cursorFactory),
-            new OrderApi($resourceClient, $pagFactory, $cursorFactory)
+            new ConnectionApi($resourceClient, $pageFactory, $cursorFactory),
+            new ContactApi($resourceClient, $pageFactory, $cursorFactory),
+            new CustomerApi($resourceClient, $pageFactory, $cursorFactory),
+            new DealApi($resourceClient, $pageFactory, $cursorFactory),
+            new OrderApi($resourceClient, $pageFactory, $cursorFactory)
         );
     }
 

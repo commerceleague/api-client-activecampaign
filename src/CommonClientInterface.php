@@ -8,6 +8,7 @@ use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
 
 /**
@@ -34,6 +35,11 @@ interface CommonClientInterface
      * @return CustomerApiResourceInterface
      */
     public function getCustomerApi(): CustomerApiResourceInterface;
+
+    /**
+     * @return DealApiResourceInterface
+     */
+    public function getDealApi(): DealApiResourceInterface;
 
     /**
      * @return OrderApiResourceInterface

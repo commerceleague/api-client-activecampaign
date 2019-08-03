@@ -9,6 +9,7 @@ use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
 
 /**
@@ -37,6 +38,11 @@ class CommonClient implements CommonClientInterface
     private $customerApi;
 
     /**
+     * @var DealApiResourceInterface
+     */
+    private $dealApi;
+
+    /**
      * @var OrderApiResourceInterface
      */
     private $orderApi;
@@ -46,6 +52,7 @@ class CommonClient implements CommonClientInterface
      * @param ConnectionApiResourceInterface $connectionApi
      * @param ContactApiResourceInterface $contactApi
      * @param CustomerApiResourceInterface $customerApi
+     * @param DealApiResourceInterface $dealApi
      * @param OrderApiResourceInterface $orderApi
      */
     public function __construct(
@@ -53,12 +60,14 @@ class CommonClient implements CommonClientInterface
         ConnectionApiResourceInterface $connectionApi,
         ContactApiResourceInterface $contactApi,
         CustomerApiResourceInterface $customerApi,
+        DealApiResourceInterface $dealApi,
         OrderApiResourceInterface $orderApi
     ) {
         $this->abandonedCartApi = $abandonedCartApi;
         $this->connectionApi = $connectionApi;
         $this->contactApi = $contactApi;
         $this->customerApi = $customerApi;
+        $this->dealApi = $dealApi;
         $this->orderApi = $orderApi;
     }
 
@@ -92,6 +101,14 @@ class CommonClient implements CommonClientInterface
     public function getCustomerApi(): CustomerApiResourceInterface
     {
         return $this->customerApi;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDealApi(): DealApiResourceInterface
+    {
+        return $this->dealApi;
     }
 
     /**
