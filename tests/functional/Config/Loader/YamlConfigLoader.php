@@ -7,7 +7,8 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi\tests\functional\Config\Loader;
 
-use CommerceLeague\ActiveCampaignApi\tests\functional\Config\Model\ApiConfig;
+use CommerceLeague\ActiveCampaignApi\tests\functional\Config\Model\Config;
+use Exception;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Yaml\Yaml;
 
@@ -24,15 +25,17 @@ class YamlConfigLoader extends FileLoader
      *
      * @param mixed $resource The resource
      *
-     * @throws \Exception If something went wrong
+     * @throws Exception If something went wrong
      */
     public function load($resource, string $type = null)
     {
         $configValues = Yaml::parse(file_get_contents($resource));
-        $apiConfig = new ApiConfig();
-        $apiConfig->setUrl($configValues['credentials']['url'])
-            ->setToken($configValues['credentials']['token']);
-        return $apiConfig;
+        $config       = new Config();
+        $config->setUrl($configValues['credentials']['url'])
+            ->setToken($configValues['credentials']['token'])
+            ->setTags($configValues['tests']['functional']['api']['tags'])
+            ->setLists($configValues['tests']['functional']['api']['lists']);
+        return $config;
     }
 
     /**
@@ -44,9 +47,10 @@ class YamlConfigLoader extends FileLoader
      */
     public function supports($resource, string $type = null)
     {
-        return is_string($resource) && 'yaml' === pathinfo(
-            $resource,
-            PATHINFO_EXTENSION
-        );
+        return is_string($resource)
+            && 'yaml' === pathinfo(
+                $resource,
+                PATHINFO_EXTENSION
+            );
     }
 }
