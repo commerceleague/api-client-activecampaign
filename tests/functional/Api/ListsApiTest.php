@@ -20,7 +20,7 @@ class ListsApiTest extends AbstractApiTest
 
     public function testListListsBySearchterm()
     {
-        /** @var ListsApiResourceInterface $tagsApi */
+        /** @var ListsApiResourceInterface $listsApi */
         $listsApi = self::$client->getListsApi();
 
         $listsConfig = self::$apiConfig->getLists();
@@ -36,7 +36,7 @@ class ListsApiTest extends AbstractApiTest
 
     public function testGetAllLists()
     {
-        /** @var ListsApiResourceInterface $tagsApi */
+        /** @var ListsApiResourceInterface $listsApi */
         $listsApi = self::$client->getListsApi();
         $page     = $listsApi->listPerPage(100, 0);
 

@@ -35,9 +35,9 @@ class TagsApiTest extends TestCase
     protected $cursorFactory;
 
     /**
-     * @var OrderApi
+     * @var TagsApi
      */
-    protected $orderApi;
+    protected $tagsApi;
 
     public function testGet()
     {
@@ -48,7 +48,7 @@ class TagsApiTest extends TestCase
             ->with('api/3/tags/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->orderApi->get($id));
+        $this->assertEquals($response, $this->tagsApi->get($id));
     }
 
     public function testListPerPage()
@@ -80,9 +80,9 @@ class TagsApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->orderApi, $response['tags'], $response['meta']);
+            ->with($this->tagsApi, $response['tags'], $response['meta']);
 
-        $this->orderApi->listPerPage($limit, $offset, $queryParameters);
+        $this->tagsApi->listPerPage($limit, $offset, $queryParameters);
     }
 
     public function testAll()
@@ -116,14 +116,14 @@ class TagsApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->orderApi, $response['tags'], $response['meta'])
+            ->with($this->tagsApi, $response['tags'], $response['meta'])
             ->willReturn($page);
 
         $this->cursorFactory->expects($this->once())
             ->method('createCursor')
             ->with($limit, $page);
 
-        $this->orderApi->all($limit, $queryParameters);
+        $this->tagsApi->all($limit, $queryParameters);
     }
 
     public function testCreate()
@@ -136,7 +136,7 @@ class TagsApiTest extends TestCase
             ->with('api/3/tags', [], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->orderApi->create($data));
+        $this->assertEquals($response, $this->tagsApi->create($data));
     }
 
     public function testUpdate()
@@ -150,7 +150,7 @@ class TagsApiTest extends TestCase
             ->with('api/3/tags/%s', [$id], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->orderApi->update($id, $data));
+        $this->assertEquals($response, $this->tagsApi->update($id, $data));
     }
 
     public function testDelete()
@@ -163,7 +163,7 @@ class TagsApiTest extends TestCase
             ->with('api/3/tags/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->orderApi->delete($id));
+        $this->assertEquals($response, $this->tagsApi->delete($id));
     }
 
     protected function setUp(): void
@@ -171,7 +171,7 @@ class TagsApiTest extends TestCase
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
         $this->pageFactory    = $this->createMock(PageFactoryInterface::class);
         $this->cursorFactory  = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->orderApi       = new TagsApi(
+        $this->tagsApi        = new TagsApi(
             $this->resourceClient,
             $this->pageFactory,
             $this->cursorFactory

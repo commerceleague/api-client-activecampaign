@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\unit\unit\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ContactApiTest extends TestCase
 {
+
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -36,21 +37,9 @@ class ContactApiTest extends TestCase
      */
     protected $contactApi;
 
-    protected function setUp(): void
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
-        $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->contactApi = new ContactApi(
-            $this->resourceClient,
-            $this->pageFactory,
-            $this->cursorFactory
-        );
-    }
-
     public function testGet()
     {
-        $id = 123;
+        $id       = 123;
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
@@ -62,8 +51,8 @@ class ContactApiTest extends TestCase
 
     public function testListPerPage()
     {
-        $limit = 55;
-        $offset = 10;
+        $limit           = 55;
+        $offset          = 10;
         $queryParameters = ['query' => 'param'];
 
         $response = [
@@ -71,7 +60,7 @@ class ContactApiTest extends TestCase
                 ['first contact'],
                 ['second contact']
             ],
-            'meta' => [
+            'meta'     => [
                 'total' => 1000
             ]
         ];
@@ -96,14 +85,14 @@ class ContactApiTest extends TestCase
 
     public function testAll()
     {
-        $limit = 55;
+        $limit           = 55;
         $queryParameters = ['query' => 'param'];
-        $response = [
+        $response        = [
             'contacts' => [
                 ['first contact'],
                 ['second contact']
             ],
-            'meta' => [
+            'meta'     => [
                 'total' => 1000
             ]
         ];
@@ -136,7 +125,7 @@ class ContactApiTest extends TestCase
 
     public function testCreate()
     {
-        $data = ['data'];
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -149,8 +138,8 @@ class ContactApiTest extends TestCase
 
     public function testUpdate()
     {
-        $id = 123;
-        $data = ['data'];
+        $id       = 123;
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -163,7 +152,7 @@ class ContactApiTest extends TestCase
 
     public function testUpsert()
     {
-        $data = ['data'];
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -176,7 +165,7 @@ class ContactApiTest extends TestCase
 
     public function testDelete()
     {
-        $id = 123;
+        $id       = 123;
         $response = true;
 
         $this->resourceClient->expects($this->once())
@@ -185,5 +174,17 @@ class ContactApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->contactApi->delete($id));
+    }
+
+    protected function setUp(): void
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->pageFactory    = $this->createMock(PageFactoryInterface::class);
+        $this->cursorFactory  = $this->createMock(ResourceCursorFactoryInterface::class);
+        $this->contactApi     = new ContactApi(
+            $this->resourceClient,
+            $this->pageFactory,
+            $this->cursorFactory
+        );
     }
 }

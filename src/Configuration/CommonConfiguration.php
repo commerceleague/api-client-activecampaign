@@ -2,6 +2,7 @@
 declare(strict_types=1);
 /**
  */
+
 namespace CommerceLeague\ActiveCampaignApi\Configuration;
 
 /**
@@ -9,6 +10,7 @@ namespace CommerceLeague\ActiveCampaignApi\Configuration;
  */
 class CommonConfiguration
 {
+
     /**
      * @var string
      */
@@ -38,13 +40,14 @@ class CommonConfiguration
     /**
      * @param string $baseUri
      * @param string $token
+     *
      * @return CommonConfiguration
      */
     public static function build(string $baseUri, string $token): self
     {
-        $configuration = new static();
+        $configuration          = new self();
         $configuration->baseUri = $baseUri;
-        $configuration->token = $token;
+        $configuration->token   = $token;
 
         return $configuration;
     }
