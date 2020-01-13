@@ -10,6 +10,7 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 
@@ -55,6 +56,11 @@ class CommonClient implements CommonClientInterface
     private $tagsApi;
 
     /**
+     * @var ListsApiResourceInterface
+     */
+    private $listsApi;
+
+    /**
      * @param AbandonedCartApiResourceInterface $abandonedCartApi
      * @param ConnectionApiResourceInterface    $connectionApi
      * @param ContactApiResourceInterface       $contactApi
@@ -69,7 +75,8 @@ class CommonClient implements CommonClientInterface
         CustomerApiResourceInterface $customerApi,
         DealApiResourceInterface $dealApi,
         OrderApiResourceInterface $orderApi,
-        TagsApiResourceInterface $tagsApi
+        TagsApiResourceInterface $tagsApi,
+        ListsApiResourceInterface $listsApi
     ) {
         $this->abandonedCartApi = $abandonedCartApi;
         $this->connectionApi    = $connectionApi;
@@ -78,6 +85,15 @@ class CommonClient implements CommonClientInterface
         $this->dealApi          = $dealApi;
         $this->orderApi         = $orderApi;
         $this->tagsApi          = $tagsApi;
+        $this->listsApi         = $listsApi;
+    }
+
+    /**
+     * @return ListsApiResourceInterface
+     */
+    public function getListsApi(): ListsApiResourceInterface
+    {
+        return $this->listsApi;
     }
 
     /**

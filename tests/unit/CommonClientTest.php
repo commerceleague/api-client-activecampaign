@@ -10,6 +10,7 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\CommonClient;
@@ -53,29 +54,14 @@ class CommonClientTest extends TestCase
     protected $tagsApi;
 
     /**
+     * @var MockObject|ListsApiResourceInterface
+     */
+    protected $listsApi;
+
+    /**
      * @var CommonClient
      */
     protected $commonClient;
-
-    protected function setUp()
-    {
-        $this->abandonedCartApi = $this->createMock(AbandonedCartApiResourceInterface::class);
-        $this->connectionApi    = $this->createMock(ConnectionApiResourceInterface::class);
-        $this->contactApi       = $this->createMock(ContactApiResourceInterface::class);
-        $this->customerApi      = $this->createMock(CustomerApiResourceInterface::class);
-        $this->dealApi          = $this->createMock(DealApiResourceInterface::class);
-        $this->orderApi         = $this->createMock(OrderApiResourceInterface::class);
-        $this->tagsApi          = $this->createMock(TagsApiResourceInterface::class);
-        $this->commonClient     = new CommonClient(
-            $this->abandonedCartApi,
-            $this->connectionApi,
-            $this->contactApi,
-            $this->customerApi,
-            $this->dealApi,
-            $this->orderApi,
-            $this->tagsApi
-        );
-    }
 
     public function testGetAbandonedCartApi()
     {
@@ -105,5 +91,32 @@ class CommonClientTest extends TestCase
     public function testGetOrderApi()
     {
         $this->assertSame($this->orderApi, $this->commonClient->getOrderApi());
+    }
+
+    public function testGetTagsApi()
+    {
+        $this->assertSame($this->tagsApi, $this->commonClient->getTagsApi());
+    }
+
+    protected function setUp(): void
+    {
+        $this->abandonedCartApi = $this->createMock(AbandonedCartApiResourceInterface::class);
+        $this->connectionApi    = $this->createMock(ConnectionApiResourceInterface::class);
+        $this->contactApi       = $this->createMock(ContactApiResourceInterface::class);
+        $this->customerApi      = $this->createMock(CustomerApiResourceInterface::class);
+        $this->dealApi          = $this->createMock(DealApiResourceInterface::class);
+        $this->orderApi         = $this->createMock(OrderApiResourceInterface::class);
+        $this->tagsApi          = $this->createMock(TagsApiResourceInterface::class);
+        $this->listsApi         = $this->createMock(ListsApiResourceInterface::class);
+        $this->commonClient     = new CommonClient(
+            $this->abandonedCartApi,
+            $this->connectionApi,
+            $this->contactApi,
+            $this->customerApi,
+            $this->dealApi,
+            $this->orderApi,
+            $this->tagsApi,
+            $this->listsApi
+        );
     }
 }

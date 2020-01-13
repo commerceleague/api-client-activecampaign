@@ -10,6 +10,7 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
 use CommerceLeague\ActiveCampaignApi\Api\DealApi;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApi;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Api\TagsApi;
 use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
@@ -133,7 +134,8 @@ class ClientBuilder
             new CustomerApi($resourceClient, $pageFactory, $cursorFactory),
             new DealApi($resourceClient, $pageFactory, $cursorFactory),
             new OrderApi($resourceClient, $pageFactory, $cursorFactory),
-            new TagsApi($resourceClient, $pageFactory, $cursorFactory)
+            new TagsApi($resourceClient, $pageFactory, $cursorFactory),
+            new ListsApi($resourceClient, $pageFactory, $cursorFactory)
         );
     }
 
