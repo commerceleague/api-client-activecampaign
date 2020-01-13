@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
@@ -23,15 +23,9 @@ class AbandonedCartApiTest extends TestCase
      */
     protected $abandonedCartApi;
 
-    protected function setUp()
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->abandonedCartApi = new AbandonedCartApi($this->resourceClient);
-    }
-
     public function testCreate()
     {
-        $data = ['data'];
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())

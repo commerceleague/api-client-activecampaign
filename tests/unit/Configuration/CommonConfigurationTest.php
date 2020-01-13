@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Configuration;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Configuration;
 
 use CommerceLeague\ActiveCampaignApi\Configuration\CommonConfiguration;
 use PHPUnit\Framework\TestCase;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Exception;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Exception;
 
 use CommerceLeague\ActiveCampaignApi\Exception\UnprocessableEntityHttpException;
 use PHPUnit\Framework\MockObject\MockObject;

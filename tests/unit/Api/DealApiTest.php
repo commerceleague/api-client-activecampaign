@@ -1,11 +1,11 @@
 <?php
-declare(strict_types=1);
 /**
  */
+declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
+use CommerceLeague\ActiveCampaignApi\Api\DealApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use CommerceLeague\ActiveCampaignApi\Paginator\Page;
 use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
@@ -14,9 +14,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CustomerApiTest
+ * Class DealApiTest
  */
-class CustomerApiTest extends TestCase
+class DealApiTest extends TestCase
 {
     /**
      * @var MockObject|CommonResourceClientInterface
@@ -34,16 +34,16 @@ class CustomerApiTest extends TestCase
     protected $cursorFactory;
 
     /**
-     * @var CustomerApi
+     * @var DealApi
      */
-    protected $customerApi;
+    protected $dealApi;
 
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
         $this->pageFactory = $this->createMock(PageFactoryInterface::class);
         $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->customerApi = new CustomerApi(
+        $this->dealApi = new DealApi(
             $this->resourceClient,
             $this->pageFactory,
             $this->cursorFactory
@@ -56,10 +56,10 @@ class CustomerApiTest extends TestCase
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
-            ->with('api/3/ecomCustomers/%s', [$id])
+            ->with('api/3/deals/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->customerApi->get($id));
+        $this->assertEquals($response, $this->dealApi->get($id));
     }
 
     public function testListPerPage()
@@ -69,9 +69,9 @@ class CustomerApiTest extends TestCase
         $queryParameters = ['query' => 'param'];
 
         $response = [
-            'ecomCustomers' => [
-                ['first ecomCustomer'],
-                ['second ecomCustomer']
+            'deals' => [
+                ['first deal'],
+                ['second deal']
             ],
             'meta' => [
                 'total' => 1000
@@ -81,7 +81,7 @@ class CustomerApiTest extends TestCase
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/ecomCustomers',
+                'api/3/deals',
                 [],
                 $limit,
                 $offset,
@@ -91,31 +91,29 @@ class CustomerApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->customerApi, $response['ecomCustomers'], $response['meta']);
+            ->with($this->dealApi, $response['deals'], $response['meta']);
 
-        $this->customerApi->listPerPage($limit, $offset, $queryParameters);
+        $this->dealApi->listPerPage($limit, $offset, $queryParameters);
     }
 
     public function testAll()
     {
         $limit = 55;
         $queryParameters = ['query' => 'param'];
-
         $response = [
-            'ecomCustomers' => [
-                ['first ecomCustomer'],
-                ['second ecomCustomer']
+            'deals' => [
+                ['first deal'],
+                ['second deal']
             ],
             'meta' => [
                 'total' => 1000
             ]
         ];
 
-
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/ecomCustomers',
+                'api/3/deals',
                 [],
                 $limit,
                 0,
@@ -128,14 +126,14 @@ class CustomerApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->customerApi, $response['ecomCustomers'], $response['meta'])
+            ->with($this->dealApi, $response['deals'], $response['meta'])
             ->willReturn($page);
 
         $this->cursorFactory->expects($this->once())
             ->method('createCursor')
             ->with($limit, $page);
 
-        $this->customerApi->all($limit, $queryParameters);
+        $this->dealApi->all($limit, $queryParameters);
     }
 
     public function testCreate()
@@ -145,10 +143,10 @@ class CustomerApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('createResource')
-            ->with('api/3/ecomCustomers', [], $data)
+            ->with('api/3/deals', [], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->customerApi->create($data));
+        $this->assertEquals($response, $this->dealApi->create($data));
     }
 
     public function testUpdate()
@@ -159,10 +157,10 @@ class CustomerApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('updateResource')
-            ->with('api/3/ecomCustomers/%s', [$id], $data)
+            ->with('api/3/deals/%s', [$id], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->customerApi->update($id, $data));
+        $this->assertEquals($response, $this->dealApi->update($id, $data));
     }
 
     public function testDelete()
@@ -172,9 +170,9 @@ class CustomerApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('deleteResource')
-            ->with('api/3/ecomCustomers/%s', [$id])
+            ->with('api/3/deals/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->customerApi->delete($id));
+        $this->assertEquals($response, $this->dealApi->delete($id));
     }
 }

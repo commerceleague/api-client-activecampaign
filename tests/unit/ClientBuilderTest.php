@@ -2,7 +2,7 @@
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\tests;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit;
 
 use CommerceLeague\ActiveCampaignApi\ClientBuilder;
 use PHPUnit\Framework\MockObject\MockObject;

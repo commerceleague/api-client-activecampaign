@@ -1,11 +1,9 @@
 <?php
-/**
- */
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\DealApi;
+use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use CommerceLeague\ActiveCampaignApi\Paginator\Page;
 use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
@@ -14,9 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class DealApiTest
+ * Class ConnectionApiTest
  */
-class DealApiTest extends TestCase
+class ConnectionApiTest extends TestCase
 {
     /**
      * @var MockObject|CommonResourceClientInterface
@@ -34,16 +32,16 @@ class DealApiTest extends TestCase
     protected $cursorFactory;
 
     /**
-     * @var DealApi
+     * @var ConnectionApi
      */
-    protected $dealApi;
+    protected $connectionApi;
 
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
         $this->pageFactory = $this->createMock(PageFactoryInterface::class);
         $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->dealApi = new DealApi(
+        $this->connectionApi = new ConnectionApi(
             $this->resourceClient,
             $this->pageFactory,
             $this->cursorFactory
@@ -56,10 +54,10 @@ class DealApiTest extends TestCase
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
-            ->with('api/3/deals/%s', [$id])
+            ->with('api/3/connections/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->dealApi->get($id));
+        $this->assertEquals($response, $this->connectionApi->get($id));
     }
 
     public function testListPerPage()
@@ -69,9 +67,9 @@ class DealApiTest extends TestCase
         $queryParameters = ['query' => 'param'];
 
         $response = [
-            'deals' => [
-                ['first deal'],
-                ['second deal']
+            'connections' => [
+                ['first connection'],
+                ['second connection']
             ],
             'meta' => [
                 'total' => 1000
@@ -81,7 +79,7 @@ class DealApiTest extends TestCase
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/deals',
+                'api/3/connections',
                 [],
                 $limit,
                 $offset,
@@ -91,9 +89,9 @@ class DealApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->dealApi, $response['deals'], $response['meta']);
+            ->with($this->connectionApi, $response['connections'], $response['meta']);
 
-        $this->dealApi->listPerPage($limit, $offset, $queryParameters);
+        $this->connectionApi->listPerPage($limit, $offset, $queryParameters);
     }
 
     public function testAll()
@@ -101,9 +99,9 @@ class DealApiTest extends TestCase
         $limit = 55;
         $queryParameters = ['query' => 'param'];
         $response = [
-            'deals' => [
-                ['first deal'],
-                ['second deal']
+            'connections' => [
+                ['first connection'],
+                ['second connection']
             ],
             'meta' => [
                 'total' => 1000
@@ -113,7 +111,7 @@ class DealApiTest extends TestCase
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/deals',
+                'api/3/connections',
                 [],
                 $limit,
                 0,
@@ -126,14 +124,14 @@ class DealApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->dealApi, $response['deals'], $response['meta'])
+            ->with($this->connectionApi, $response['connections'], $response['meta'])
             ->willReturn($page);
 
         $this->cursorFactory->expects($this->once())
             ->method('createCursor')
             ->with($limit, $page);
 
-        $this->dealApi->all($limit, $queryParameters);
+        $this->connectionApi->all($limit, $queryParameters);
     }
 
     public function testCreate()
@@ -143,10 +141,10 @@ class DealApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('createResource')
-            ->with('api/3/deals', [], $data)
+            ->with('api/3/connections', [], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->dealApi->create($data));
+        $this->assertEquals($response, $this->connectionApi->create($data));
     }
 
     public function testUpdate()
@@ -157,10 +155,10 @@ class DealApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('updateResource')
-            ->with('api/3/deals/%s', [$id], $data)
+            ->with('api/3/connections/%s', [$id], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->dealApi->update($id, $data));
+        $this->assertEquals($response, $this->connectionApi->update($id, $data));
     }
 
     public function testDelete()
@@ -170,9 +168,9 @@ class DealApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('deleteResource')
-            ->with('api/3/deals/%s', [$id])
+            ->with('api/3/connections/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->dealApi->delete($id));
+        $this->assertEquals($response, $this->connectionApi->delete($id));
     }
 }

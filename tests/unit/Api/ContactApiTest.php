@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\unit\Api;
 
-use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
+use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
 use CommerceLeague\ActiveCampaignApi\Paginator\Page;
 use CommerceLeague\ActiveCampaignApi\Paginator\PageFactoryInterface;
@@ -12,9 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ConnectionApiTest
+ * Class ContactApiTest
  */
-class ConnectionApiTest extends TestCase
+class ContactApiTest extends TestCase
 {
     /**
      * @var MockObject|CommonResourceClientInterface
@@ -32,16 +32,16 @@ class ConnectionApiTest extends TestCase
     protected $cursorFactory;
 
     /**
-     * @var ConnectionApi
+     * @var ContactApi
      */
-    protected $connectionApi;
+    protected $contactApi;
 
     protected function setUp()
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
         $this->pageFactory = $this->createMock(PageFactoryInterface::class);
         $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->connectionApi = new ConnectionApi(
+        $this->contactApi = new ContactApi(
             $this->resourceClient,
             $this->pageFactory,
             $this->cursorFactory
@@ -54,10 +54,10 @@ class ConnectionApiTest extends TestCase
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
-            ->with('api/3/connections/%s', [$id])
+            ->with('api/3/contacts/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->connectionApi->get($id));
+        $this->assertEquals($response, $this->contactApi->get($id));
     }
 
     public function testListPerPage()
@@ -67,9 +67,9 @@ class ConnectionApiTest extends TestCase
         $queryParameters = ['query' => 'param'];
 
         $response = [
-            'connections' => [
-                ['first connection'],
-                ['second connection']
+            'contacts' => [
+                ['first contact'],
+                ['second contact']
             ],
             'meta' => [
                 'total' => 1000
@@ -79,7 +79,7 @@ class ConnectionApiTest extends TestCase
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/connections',
+                'api/3/contacts',
                 [],
                 $limit,
                 $offset,
@@ -89,9 +89,9 @@ class ConnectionApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->connectionApi, $response['connections'], $response['meta']);
+            ->with($this->contactApi, $response['contacts'], $response['meta']);
 
-        $this->connectionApi->listPerPage($limit, $offset, $queryParameters);
+        $this->contactApi->listPerPage($limit, $offset, $queryParameters);
     }
 
     public function testAll()
@@ -99,9 +99,9 @@ class ConnectionApiTest extends TestCase
         $limit = 55;
         $queryParameters = ['query' => 'param'];
         $response = [
-            'connections' => [
-                ['first connection'],
-                ['second connection']
+            'contacts' => [
+                ['first contact'],
+                ['second contact']
             ],
             'meta' => [
                 'total' => 1000
@@ -111,7 +111,7 @@ class ConnectionApiTest extends TestCase
         $this->resourceClient->expects($this->once())
             ->method('getResources')
             ->with(
-                'api/3/connections',
+                'api/3/contacts',
                 [],
                 $limit,
                 0,
@@ -124,14 +124,14 @@ class ConnectionApiTest extends TestCase
 
         $this->pageFactory->expects($this->once())
             ->method('createPage')
-            ->with($this->connectionApi, $response['connections'], $response['meta'])
+            ->with($this->contactApi, $response['contacts'], $response['meta'])
             ->willReturn($page);
 
         $this->cursorFactory->expects($this->once())
             ->method('createCursor')
             ->with($limit, $page);
 
-        $this->connectionApi->all($limit, $queryParameters);
+        $this->contactApi->all($limit, $queryParameters);
     }
 
     public function testCreate()
@@ -141,10 +141,10 @@ class ConnectionApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('createResource')
-            ->with('api/3/connections', [], $data)
+            ->with('api/3/contacts', [], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->connectionApi->create($data));
+        $this->assertEquals($response, $this->contactApi->create($data));
     }
 
     public function testUpdate()
@@ -155,10 +155,23 @@ class ConnectionApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('updateResource')
-            ->with('api/3/connections/%s', [$id], $data)
+            ->with('api/3/contacts/%s', [$id], $data)
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->connectionApi->update($id, $data));
+        $this->assertEquals($response, $this->contactApi->update($id, $data));
+    }
+
+    public function testUpsert()
+    {
+        $data = ['data'];
+        $response = ['response'];
+
+        $this->resourceClient->expects($this->once())
+            ->method('upsertResource')
+            ->with('api/3/contact/sync', [], $data)
+            ->willReturn($response);
+
+        $this->assertEquals($response, $this->contactApi->upsert($data));
     }
 
     public function testDelete()
@@ -168,9 +181,9 @@ class ConnectionApiTest extends TestCase
 
         $this->resourceClient->expects($this->once())
             ->method('deleteResource')
-            ->with('api/3/connections/%s', [$id])
+            ->with('api/3/contacts/%s', [$id])
             ->willReturn($response);
 
-        $this->assertEquals($response, $this->connectionApi->delete($id));
+        $this->assertEquals($response, $this->contactApi->delete($id));
     }
 }

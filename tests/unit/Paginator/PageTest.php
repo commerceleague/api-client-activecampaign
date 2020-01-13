@@ -2,7 +2,7 @@
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Paginator;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Paginator;
 
 use CommerceLeague\ActiveCampaignApi\Api\Operation\ListableResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClientInterface;

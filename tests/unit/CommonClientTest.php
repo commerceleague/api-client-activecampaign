@@ -3,7 +3,7 @@ declare(strict_types=1);
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\tests;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit;
 
 use CommerceLeague\ActiveCampaignApi\Api\AbandonedCartApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;

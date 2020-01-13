@@ -3,7 +3,7 @@ declare(strict_types=1);
 /**
  */
 
-namespace CommerceLeague\ActiveCampaignApi\tests\Api;
+namespace CommerceLeague\ActiveCampaignApi\tests\unit\Api;
 
 use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClientInterface;
