@@ -16,7 +16,6 @@ interface TagsApiResourceInterface extends
     GettableResourceInterface,
     ListableResourceInterface,
     CreatableResourceInterface,
-    UpdatableResourceInterface,
     DeletableResourceInterface
 {
 

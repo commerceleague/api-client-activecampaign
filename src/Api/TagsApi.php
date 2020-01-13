@@ -35,8 +35,8 @@ class TagsApi implements TagsApiResourceInterface
     private $cursorFactory;
 
     /**
-     * @param CommonResourceClientInterface $resourceClient
-     * @param PageFactoryInterface $pageFactory
+     * @param CommonResourceClientInterface  $resourceClient
+     * @param PageFactoryInterface           $pageFactory
      * @param ResourceCursorFactoryInterface $cursorFactory
      */
     public function __construct(
@@ -45,8 +45,8 @@ class TagsApi implements TagsApiResourceInterface
         ResourceCursorFactoryInterface $cursorFactory
     ) {
         $this->resourceClient = $resourceClient;
-        $this->pageFactory = $pageFactory;
-        $this->cursorFactory = $cursorFactory;
+        $this->pageFactory    = $pageFactory;
+        $this->cursorFactory  = $cursorFactory;
     }
 
     /**
@@ -54,7 +54,7 @@ class TagsApi implements TagsApiResourceInterface
      */
     public function get(int $id): array
     {
-        return $this->resourceClient->getResource(self::URL. '/%s', [$id]);
+        return $this->resourceClient->getResource(self::URL . '/%s', [$id]);
     }
 
     /**
@@ -95,15 +95,7 @@ class TagsApi implements TagsApiResourceInterface
      */
     public function update(int $id, array $data = []): array
     {
-        return $this->resourceClient->updateResource(self::URL. '/%s', [$id], $data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function upsert(array $data = []): array
-    {
-        return $this->resourceClient->upsertResource('api/3/contact/sync', [], $data);
+        return $this->resourceClient->updateResource(self::URL . '/%s', [$id], $data);
     }
 
     /**
@@ -111,6 +103,6 @@ class TagsApi implements TagsApiResourceInterface
      */
     public function delete(int $id): bool
     {
-        return $this->resourceClient->deleteResource('api/3/contacts/%s', [$id]);
+        return $this->resourceClient->deleteResource(self::URL . '/%s', [$id]);
     }
 }
