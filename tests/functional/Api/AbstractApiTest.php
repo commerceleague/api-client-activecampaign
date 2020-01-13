@@ -27,12 +27,12 @@ abstract class AbstractApiTest extends TestCase
     /**
      * @var Config
      */
-    static protected $apiConfig;
+    protected static $apiConfig;
 
     /**
      * @var CommonClient
      */
-    static protected $client;
+    protected static $client;
 
     /**
      * @inheritDoc
