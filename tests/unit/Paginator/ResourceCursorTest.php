@@ -11,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class ResourceCursorTest extends TestCase
 {
+
     /**
      * @var MockObject|PageInterface
      */
     protected $currentPage;
-
-    protected function setUp()
-    {
-        $this->currentPage = $this->createMock(PageInterface::class);
-    }
-
-    protected function createResourceCursor(?int $limit)
-    {
-        return new ResourceCursor($limit, $this->currentPage);
-    }
 
     public function testCurrent()
     {
@@ -132,8 +123,18 @@ class ResourceCursorTest extends TestCase
 
     public function testGetLimit()
     {
-        $limit = 100;
+        $limit          = 100;
         $resourceCursor = $this->createResourceCursor($limit);
         $this->assertEquals($limit, $resourceCursor->getLimit());
+    }
+
+    protected function setUp(): void
+    {
+        $this->currentPage = $this->createMock(PageInterface::class);
+    }
+
+    protected function createResourceCursor(?int $limit)
+    {
+        return new ResourceCursor($limit, $this->currentPage);
     }
 }

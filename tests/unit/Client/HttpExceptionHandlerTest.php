@@ -21,6 +21,7 @@ use Psr\Http\Message\StreamInterface;
 
 class HttpExceptionHandlerTest extends TestCase
 {
+
     /**
      * @var MockObject|RequestInterface
      */
@@ -35,13 +36,6 @@ class HttpExceptionHandlerTest extends TestCase
      * @var HttpExceptionHandler
      */
     protected $httpExceptionHandler;
-
-    protected function setUp()
-    {
-        $this->request = $this->createMock(RequestInterface::class);
-        $this->response = $this->createMock(ResponseInterface::class);
-        $this->httpExceptionHandler = new HttpExceptionHandler();
-    }
 
     public function testTransformResponseToExceptionThrowsRedirectionHttpException()
     {
@@ -195,5 +189,12 @@ class HttpExceptionHandlerTest extends TestCase
             ->willReturn('reason');
 
         $this->httpExceptionHandler->transformResponseToException($this->request, $this->response);
+    }
+
+    protected function setUp(): void
+    {
+        $this->request              = $this->createMock(RequestInterface::class);
+        $this->response             = $this->createMock(ResponseInterface::class);
+        $this->httpExceptionHandler = new HttpExceptionHandler();
     }
 }

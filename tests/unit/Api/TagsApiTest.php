@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 class TagsApiTest extends TestCase
 {
+
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -38,21 +39,9 @@ class TagsApiTest extends TestCase
      */
     protected $orderApi;
 
-    protected function setUp()
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
-        $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->orderApi = new TagsApi(
-            $this->resourceClient,
-            $this->pageFactory,
-            $this->cursorFactory
-        );
-    }
-
     public function testGet()
     {
-        $id = 123;
+        $id       = 123;
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
@@ -62,11 +51,10 @@ class TagsApiTest extends TestCase
         $this->assertEquals($response, $this->orderApi->get($id));
     }
 
-
     public function testListPerPage()
     {
-        $limit = 55;
-        $offset = 10;
+        $limit           = 55;
+        $offset          = 10;
         $queryParameters = ['query' => 'param'];
 
         $response = [
@@ -99,7 +87,7 @@ class TagsApiTest extends TestCase
 
     public function testAll()
     {
-        $limit = 55;
+        $limit           = 55;
         $queryParameters = ['query' => 'param'];
 
         $response = [
@@ -140,7 +128,7 @@ class TagsApiTest extends TestCase
 
     public function testCreate()
     {
-        $data = ['data'];
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -153,8 +141,8 @@ class TagsApiTest extends TestCase
 
     public function testUpdate()
     {
-        $id = 123;
-        $data = ['data'];
+        $id       = 123;
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -167,7 +155,7 @@ class TagsApiTest extends TestCase
 
     public function testDelete()
     {
-        $id = 123;
+        $id       = 123;
         $response = true;
 
         $this->resourceClient->expects($this->once())
@@ -176,5 +164,17 @@ class TagsApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->orderApi->delete($id));
+    }
+
+    protected function setUp(): void
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->pageFactory    = $this->createMock(PageFactoryInterface::class);
+        $this->cursorFactory  = $this->createMock(ResourceCursorFactoryInterface::class);
+        $this->orderApi       = new TagsApi(
+            $this->resourceClient,
+            $this->pageFactory,
+            $this->cursorFactory
+        );
     }
 }

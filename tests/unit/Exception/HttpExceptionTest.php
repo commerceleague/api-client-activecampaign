@@ -28,7 +28,7 @@ class HttpExceptionTest extends TestCase
      */
     protected $httpException;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = $this->createMock(RequestInterface::class);
         $this->response = $this->createMock(ResponseInterface::class);

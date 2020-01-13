@@ -14,6 +14,7 @@ use Psr\Http\Message\StreamInterface;
  */
 class UnprocessableEntityHttpExceptionTest extends TestCase
 {
+
     /**
      * @var MockObject|RequestInterface
      */
@@ -28,22 +29,6 @@ class UnprocessableEntityHttpExceptionTest extends TestCase
      * @var UnprocessableEntityHttpException
      */
     protected $unprocessableEntityHttpException;
-
-    protected function setUp()
-    {
-        $this->request = $this->createMock(RequestInterface::class);
-        $this->response = $this->createMock(ResponseInterface::class);
-
-        $this->response->expects($this->any())
-            ->method('getStatusCode')
-            ->willReturn(500);
-
-        $this->unprocessableEntityHttpException = new UnprocessableEntityHttpException(
-            'message',
-            $this->request,
-            $this->response
-        );
-    }
 
     public function testGetResponseErrors()
     {
@@ -63,5 +48,21 @@ class UnprocessableEntityHttpExceptionTest extends TestCase
             ->willReturn(json_encode(['contents']));
 
         $this->unprocessableEntityHttpException->getResponseErrors();
+    }
+
+    protected function setUp(): void
+    {
+        $this->request  = $this->createMock(RequestInterface::class);
+        $this->response = $this->createMock(ResponseInterface::class);
+
+        $this->response->expects($this->any())
+            ->method('getStatusCode')
+            ->willReturn(500);
+
+        $this->unprocessableEntityHttpException = new UnprocessableEntityHttpException(
+            'message',
+            $this->request,
+            $this->response
+        );
     }
 }

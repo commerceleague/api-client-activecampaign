@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CustomerApiTest extends TestCase
 {
+
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -38,21 +39,9 @@ class CustomerApiTest extends TestCase
      */
     protected $customerApi;
 
-    protected function setUp()
-    {
-        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
-        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
-        $this->cursorFactory = $this->createMock(ResourceCursorFactoryInterface::class);
-        $this->customerApi = new CustomerApi(
-            $this->resourceClient,
-            $this->pageFactory,
-            $this->cursorFactory
-        );
-    }
-
     public function testGet()
     {
-        $id = 123;
+        $id       = 123;
         $response = ['response'];
         $this->resourceClient->expects($this->once())
             ->method('getResource')
@@ -64,8 +53,8 @@ class CustomerApiTest extends TestCase
 
     public function testListPerPage()
     {
-        $limit = 55;
-        $offset = 10;
+        $limit           = 55;
+        $offset          = 10;
         $queryParameters = ['query' => 'param'];
 
         $response = [
@@ -73,7 +62,7 @@ class CustomerApiTest extends TestCase
                 ['first ecomCustomer'],
                 ['second ecomCustomer']
             ],
-            'meta' => [
+            'meta'          => [
                 'total' => 1000
             ]
         ];
@@ -98,7 +87,7 @@ class CustomerApiTest extends TestCase
 
     public function testAll()
     {
-        $limit = 55;
+        $limit           = 55;
         $queryParameters = ['query' => 'param'];
 
         $response = [
@@ -106,11 +95,10 @@ class CustomerApiTest extends TestCase
                 ['first ecomCustomer'],
                 ['second ecomCustomer']
             ],
-            'meta' => [
+            'meta'          => [
                 'total' => 1000
             ]
         ];
-
 
         $this->resourceClient->expects($this->once())
             ->method('getResources')
@@ -140,7 +128,7 @@ class CustomerApiTest extends TestCase
 
     public function testCreate()
     {
-        $data = ['data'];
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -153,8 +141,8 @@ class CustomerApiTest extends TestCase
 
     public function testUpdate()
     {
-        $id = 123;
-        $data = ['data'];
+        $id       = 123;
+        $data     = ['data'];
         $response = ['response'];
 
         $this->resourceClient->expects($this->once())
@@ -167,7 +155,7 @@ class CustomerApiTest extends TestCase
 
     public function testDelete()
     {
-        $id = 123;
+        $id       = 123;
         $response = true;
 
         $this->resourceClient->expects($this->once())
@@ -176,5 +164,17 @@ class CustomerApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->customerApi->delete($id));
+    }
+
+    protected function setUp(): void
+    {
+        $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
+        $this->pageFactory    = $this->createMock(PageFactoryInterface::class);
+        $this->cursorFactory  = $this->createMock(ResourceCursorFactoryInterface::class);
+        $this->customerApi    = new CustomerApi(
+            $this->resourceClient,
+            $this->pageFactory,
+            $this->cursorFactory
+        );
     }
 }

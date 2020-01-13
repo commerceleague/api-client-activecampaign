@@ -15,6 +15,7 @@ use Psr\Http\Message\StreamInterface;
 
 class CommonResourceClientTest extends TestCase
 {
+
     /**
      * @var MockObject|HttpClientInterface
      */
@@ -40,25 +41,12 @@ class CommonResourceClientTest extends TestCase
      */
     protected $commonResourceClient;
 
-    protected function setUp()
-    {
-        $this->httpClient = $this->createMock(HttpClientInterface::class);
-        $this->uriGenerator = $this->createMock(UriGeneratorInterface::class);
-        $this->response = $this->createMock(ResponseInterface::class);
-        $this->stream = $this->createMock(StreamInterface::class);
-
-        $this->commonResourceClient = new CommonResourceClient(
-            $this->httpClient,
-            $this->uriGenerator
-        );
-    }
-
     public function testGetResource()
     {
-        $uri = 'api/3/contacts/%s';
+        $uri           = 'api/3/contacts/%s';
         $uriParameters = [123];
-        $generatedUri = 'api/3/contacts/123';
-        $contents =['contents'];
+        $generatedUri  = 'api/3/contacts/123';
+        $contents      = ['contents'];
 
         $this->uriGenerator->expects($this->once())
             ->method('generate')
@@ -89,8 +77,8 @@ class CommonResourceClientTest extends TestCase
 
     public function testCreateResource()
     {
-        $uri = 'api/3/contacts';
-        $body = ['body'];
+        $uri      = 'api/3/contacts';
+        $body     = ['body'];
         $contents = ['contents'];
 
         $this->uriGenerator->expects($this->once())
@@ -123,11 +111,11 @@ class CommonResourceClientTest extends TestCase
 
     public function testUpdateResource()
     {
-        $uri = 'api/3/contacts/%s';
+        $uri           = 'api/3/contacts/%s';
         $uriParameters = [123];
-        $generatedUri = 'api/3/contacts/123';
-        $body = ['body'];
-        $contents = ['contents'];
+        $generatedUri  = 'api/3/contacts/123';
+        $body          = ['body'];
+        $contents      = ['contents'];
 
         $this->uriGenerator->expects($this->once())
             ->method('generate')
@@ -159,8 +147,8 @@ class CommonResourceClientTest extends TestCase
 
     public function testUpsertResource()
     {
-        $uri = 'api/3/contact/sync';
-        $body = ['body'];
+        $uri      = 'api/3/contact/sync';
+        $body     = ['body'];
         $contents = ['contents'];
 
         $this->uriGenerator->expects($this->once())
@@ -193,10 +181,10 @@ class CommonResourceClientTest extends TestCase
 
     public function testDeleteResource()
     {
-        $uri = 'api/3/contacts/%s';
+        $uri           = 'api/3/contacts/%s';
         $uriParameters = [123];
-        $generatedUri = 'api/3/contacts/123';
-        $statusCode = 200;
+        $generatedUri  = 'api/3/contacts/123';
+        $statusCode    = 200;
 
         $this->uriGenerator->expects($this->once())
             ->method('generate')
@@ -217,6 +205,19 @@ class CommonResourceClientTest extends TestCase
         $this->assertEquals(
             $statusCode,
             $this->commonResourceClient->deleteResource($uri, $uriParameters)
+        );
+    }
+
+    protected function setUp(): void
+    {
+        $this->httpClient   = $this->createMock(HttpClientInterface::class);
+        $this->uriGenerator = $this->createMock(UriGeneratorInterface::class);
+        $this->response     = $this->createMock(ResponseInterface::class);
+        $this->stream       = $this->createMock(StreamInterface::class);
+
+        $this->commonResourceClient = new CommonResourceClient(
+            $this->httpClient,
+            $this->uriGenerator
         );
     }
 }

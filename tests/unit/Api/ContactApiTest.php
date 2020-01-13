@@ -36,7 +36,7 @@ class ContactApiTest extends TestCase
      */
     protected $contactApi;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resourceClient = $this->createMock(CommonResourceClientInterface::class);
         $this->pageFactory = $this->createMock(PageFactoryInterface::class);

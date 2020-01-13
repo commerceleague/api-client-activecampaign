@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
+
     /**
      * @var MockObject|PageFactoryInterface
      */
@@ -29,26 +30,6 @@ class PageTest extends TestCase
      */
     protected $listableResource;
 
-    protected function setUp()
-    {
-        $this->pageFactory = $this->createMock(PageFactoryInterface::class);
-        $this->httpClient = $this->createMock(HttpClientInterface::class);
-        $this->listableResource = $this->createMock(ListableResourceInterface::class);
-    }
-
-    protected function createPage(int $totalCount, ?int $limit, ?int $offset, array $items)
-    {
-        return new Page(
-            $this->pageFactory,
-            $this->httpClient,
-            $this->listableResource,
-            $totalCount,
-            $limit,
-            $offset,
-            $items
-        );
-    }
-
     public function testGetNextPageWithoutNextPage()
     {
         $this->listableResource->expects($this->never())
@@ -59,7 +40,7 @@ class PageTest extends TestCase
 
     public function testGetNextPage()
     {
-        $limit = 10;
+        $limit  = 10;
         $offset = 0;
 
         /** @var MockObject|PageInterface $nextPage */
@@ -76,7 +57,7 @@ class PageTest extends TestCase
     public function testGetItems()
     {
         $items = ['first item', 'second item'];
-        $page = $this->createPage(0, null, null, $items);
+        $page  = $this->createPage(0, null, null, $items);
         $this->assertEquals($items, $page->getItems());
     }
 
@@ -88,5 +69,25 @@ class PageTest extends TestCase
     public function testHasNextPage()
     {
         $this->assertTrue($this->createPage(30, 10, 2, [])->hasNextPage());
+    }
+
+    protected function setUp(): void
+    {
+        $this->pageFactory      = $this->createMock(PageFactoryInterface::class);
+        $this->httpClient       = $this->createMock(HttpClientInterface::class);
+        $this->listableResource = $this->createMock(ListableResourceInterface::class);
+    }
+
+    protected function createPage(int $totalCount, ?int $limit, ?int $offset, array $items)
+    {
+        return new Page(
+            $this->pageFactory,
+            $this->httpClient,
+            $this->listableResource,
+            $totalCount,
+            $limit,
+            $offset,
+            $items
+        );
     }
 }

@@ -13,6 +13,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 
 class ClientBuilderTest extends TestCase
 {
+
     /**
      * @var MockObject|ClientInterface
      */
@@ -32,15 +33,6 @@ class ClientBuilderTest extends TestCase
      * @var ClientBuilder
      */
     protected $clientBuilder;
-
-    protected function setUp()
-    {
-        $this->httpClient = $this->createMock(ClientInterface::class);
-        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
-        $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
-
-        $this->clientBuilder = new ClientBuilder();
-    }
 
     public function testGetHttpClientFromDiscovery()
     {
@@ -73,5 +65,14 @@ class ClientBuilderTest extends TestCase
     {
         $this->clientBuilder->setStreamFactory($this->streamFactory);
         $this->assertSame($this->streamFactory, $this->clientBuilder->getStreamFactory());
+    }
+
+    protected function setUp(): void
+    {
+        $this->httpClient     = $this->createMock(ClientInterface::class);
+        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
+        $this->streamFactory  = $this->createMock(StreamFactoryInterface::class);
+
+        $this->clientBuilder = new ClientBuilder();
     }
 }

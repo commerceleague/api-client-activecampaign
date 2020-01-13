@@ -37,7 +37,7 @@ class AbandonedCartApiTest extends TestCase
         $this->assertEquals($response, $this->abandonedCartApi->create($data));
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resourceClient   = $this->createMock(CommonResourceClientInterface::class);
         $this->abandonedCartApi = new AbandonedCartApi($this->resourceClient);

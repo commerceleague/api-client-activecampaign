@@ -17,6 +17,7 @@ use Psr\Http\Message\StreamInterface;
 
 class HttpClientTest extends TestCase
 {
+
     /**
      * @var MockObject|ClientInterface
      */
@@ -37,23 +38,11 @@ class HttpClientTest extends TestCase
      */
     protected $httpClient;
 
-    protected function setUp()
-    {
-        $this->baseHttpClient = $this->createMock(ClientInterface::class);
-        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
-        $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
-        $this->httpClient = new HttpClient(
-            $this->baseHttpClient,
-            $this->requestFactory,
-            $this->streamFactory
-        );
-    }
-
     public function testSendRequestWithStringBody()
     {
         $httpMethod = 'POST';
-        $uri = 'api/3/contacts';
-        $body = 'the body';
+        $uri        = 'api/3/contacts';
+        $body       = 'the body';
 
         /** @var MockObject|RequestInterface $request */
         $request = $this->createMock(RequestInterface::class);
@@ -90,7 +79,7 @@ class HttpClientTest extends TestCase
     public function testSendRequestWithStreamBody()
     {
         $httpMethod = 'POST';
-        $uri = 'api/3/contacts';
+        $uri        = 'api/3/contacts';
         /** @var MockObject|StreamInterface $body */
         $body = $this->createMock(StreamInterface::class);
 
@@ -121,8 +110,8 @@ class HttpClientTest extends TestCase
     public function testSendRequest()
     {
         $httpMethod = 'POST';
-        $uri = 'api/3/contacts';
-        $headers = ['header' => 'content'];
+        $uri        = 'api/3/contacts';
+        $headers    = ['header' => 'content'];
 
         /** @var MockObject|RequestInterface $request */
         $request = $this->createMock(RequestInterface::class);
@@ -146,5 +135,17 @@ class HttpClientTest extends TestCase
             ->willReturn($response);
 
         $this->httpClient->sendRequest($httpMethod, $uri, $headers, null);
+    }
+
+    protected function setUp(): void
+    {
+        $this->baseHttpClient = $this->createMock(ClientInterface::class);
+        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
+        $this->streamFactory  = $this->createMock(StreamFactoryInterface::class);
+        $this->httpClient     = new HttpClient(
+            $this->baseHttpClient,
+            $this->requestFactory,
+            $this->streamFactory
+        );
     }
 }

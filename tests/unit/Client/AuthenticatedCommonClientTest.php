@@ -14,6 +14,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class AuthenticatedCommonClientTest extends TestCase
 {
+
     /**
      * @var MockObject|CommonConfiguration
      */
@@ -29,22 +30,11 @@ class AuthenticatedCommonClientTest extends TestCase
      */
     protected $authenticatedCommonClient;
 
-    protected function setUp()
-    {
-        $this->configuration = $this->createMock(CommonConfiguration::class);
-        $this->client = $this->createMock(HttpClientInterface::class);
-
-        $this->authenticatedCommonClient = new AuthenticatedCommonClient(
-            $this->configuration,
-            $this->client
-        );
-    }
-
     public function testSendRequest()
     {
-        $token = 'TOKEN';
+        $token      = 'TOKEN';
         $httpMethod = 'POST';
-        $uri = 'api/3/contacts';
+        $uri        = 'api/3/contacts';
         /** @var MockObject|ResponseInterface $response */
         $response = $this->createMock(ResponseInterface::class);
 
@@ -67,6 +57,17 @@ class AuthenticatedCommonClientTest extends TestCase
                 $httpMethod,
                 $uri
             )
+        );
+    }
+
+    protected function setUp(): void
+    {
+        $this->configuration = $this->createMock(CommonConfiguration::class);
+        $this->client        = $this->createMock(HttpClientInterface::class);
+
+        $this->authenticatedCommonClient = new AuthenticatedCommonClient(
+            $this->configuration,
+            $this->client
         );
     }
 }
