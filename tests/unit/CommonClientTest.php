@@ -11,6 +11,7 @@ use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\CommonClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -48,6 +49,9 @@ class CommonClientTest extends TestCase
      */
     protected $orderApi;
 
+    /** @var MockObject|TagsApiResourceInterface */
+    protected $tagsApi;
+
     /**
      * @var CommonClient
      */
@@ -56,18 +60,20 @@ class CommonClientTest extends TestCase
     protected function setUp()
     {
         $this->abandonedCartApi = $this->createMock(AbandonedCartApiResourceInterface::class);
-        $this->connectionApi = $this->createMock(ConnectionApiResourceInterface::class);
-        $this->contactApi = $this->createMock(ContactApiResourceInterface::class);
-        $this->customerApi = $this->createMock(CustomerApiResourceInterface::class);
-        $this->dealApi = $this->createMock(DealApiResourceInterface::class);
-        $this->orderApi = $this->createMock(OrderApiResourceInterface::class);
-        $this->commonClient = new CommonClient(
+        $this->connectionApi    = $this->createMock(ConnectionApiResourceInterface::class);
+        $this->contactApi       = $this->createMock(ContactApiResourceInterface::class);
+        $this->customerApi      = $this->createMock(CustomerApiResourceInterface::class);
+        $this->dealApi          = $this->createMock(DealApiResourceInterface::class);
+        $this->orderApi         = $this->createMock(OrderApiResourceInterface::class);
+        $this->tagsApi          = $this->createMock(TagsApiResourceInterface::class);
+        $this->commonClient     = new CommonClient(
             $this->abandonedCartApi,
             $this->connectionApi,
             $this->contactApi,
             $this->customerApi,
             $this->dealApi,
-            $this->orderApi
+            $this->orderApi,
+            $this->tagsApi
         );
     }
 

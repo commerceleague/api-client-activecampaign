@@ -7,6 +7,9 @@ A simple PHP client to use the [ActiveCampaign PHP API](https://developers.activ
 [![Code Quality][ico-scrutinizer]][link-scrutinizer]
 [![Code Coverage][ico-codecov]][link-codecov]
 
+# Running Functional tests
+Copy `tests\functional\Config\params.yaml.dist` to `tests\functional\Config\params.yaml` and change the values appropriately
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

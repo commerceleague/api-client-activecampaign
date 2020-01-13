@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class AbandonedCartApiTest extends TestCase
 {
+
     /**
      * @var MockObject|CommonResourceClientInterface
      */
@@ -34,5 +35,11 @@ class AbandonedCartApiTest extends TestCase
             ->willReturn($response);
 
         $this->assertEquals($response, $this->abandonedCartApi->create($data));
+    }
+
+    protected function setUp()
+    {
+        $this->resourceClient   = $this->createMock(CommonResourceClientInterface::class);
+        $this->abandonedCartApi = new AbandonedCartApi($this->resourceClient);
     }
 }
