@@ -1,0 +1,3 @@
+credentials:
+  url: '[SET_YOUR_URL_HERE]'
+  token: '[SET_YOUR_TOKEN_HERE]'
