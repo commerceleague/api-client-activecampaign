@@ -16,6 +16,7 @@ use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorInterface;
  */
 class ContactApi implements ContactApiResourceInterface
 {
+
     /**
      * @var CommonResourceClientInterface
      */
@@ -32,8 +33,8 @@ class ContactApi implements ContactApiResourceInterface
     private $cursorFactory;
 
     /**
-     * @param CommonResourceClientInterface $resourceClient
-     * @param PageFactoryInterface $pageFactory
+     * @param CommonResourceClientInterface  $resourceClient
+     * @param PageFactoryInterface           $pageFactory
      * @param ResourceCursorFactoryInterface $cursorFactory
      */
     public function __construct(
@@ -42,8 +43,8 @@ class ContactApi implements ContactApiResourceInterface
         ResourceCursorFactoryInterface $cursorFactory
     ) {
         $this->resourceClient = $resourceClient;
-        $this->pageFactory = $pageFactory;
-        $this->cursorFactory = $cursorFactory;
+        $this->pageFactory    = $pageFactory;
+        $this->cursorFactory  = $cursorFactory;
     }
 
     /**
@@ -109,5 +110,17 @@ class ContactApi implements ContactApiResourceInterface
     public function delete(int $id): bool
     {
         return $this->resourceClient->deleteResource('api/3/contacts/%s', [$id]);
+    }
+
+    /**
+     * Update list status for a contact
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function updateListStatus(array $data): array
+    {
+        return $this->resourceClient->createResource('api/3/contactList', [], $data);
     }
 }
