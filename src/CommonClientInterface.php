@@ -9,7 +9,9 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 
 /**
  * Interface CommonClientInterface
@@ -45,4 +47,14 @@ interface CommonClientInterface
      * @return OrderApiResourceInterface
      */
     public function getOrderApi(): OrderApiResourceInterface;
+
+    /**
+     * @return TagsApiResourceInterface
+     */
+    public function getTagsApi(): TagsApiResourceInterface;
+
+    /**
+     * @return ListsApiResourceInterface
+     */
+    public function getListsApi(): ListsApiResourceInterface;
 }
