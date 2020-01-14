@@ -123,4 +123,16 @@ class ContactApi implements ContactApiResourceInterface
     {
         return $this->resourceClient->createResource('api/3/contactList', [], $data);
     }
+
+    /**
+     * Add a Tag to a contact
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function tagContact(array $data): array
+    {
+        return $this->resourceClient->createResource('api/3/contactTags', [], $data);
+    }
 }
