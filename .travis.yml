@@ -1,26 +1,26 @@
 language: php
 
 php:
-    - 7.2
+  - 7.2
 
 cache:
-    directories:
-        - $HOME/.composer/cache/files
+  directories:
+    - $HOME/.composer/cache/files
 
 before_install:
-    - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - composer self-update --no-interaction
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - composer self-update --no-interaction
 
 install:
-    - composer install --prefer-dist --no-interaction
+  - composer install --prefer-dist --no-interaction
 
 script:
-    - php vendor/bin/phpunit --coverage-clover=coverage.xml
-    - php vendor/bin/phpstan analyse -l 4 src tests
-    - php vendor/bin/phpcs --standard=PSR1,PSR2 src tests
+  - php vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
+  - php vendor/bin/phpstan analyse -l 4 src tests
+  - php vendor/bin/phpcs --standard=PSR1,PSR2 src tests
 
 notifications:
-    email: false
+  email: false
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)

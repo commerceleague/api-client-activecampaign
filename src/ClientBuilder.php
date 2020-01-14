@@ -10,7 +10,9 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApi;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApi;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApi;
 use CommerceLeague\ActiveCampaignApi\Api\DealApi;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApi;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApi;
+use CommerceLeague\ActiveCampaignApi\Api\TagsApi;
 use CommerceLeague\ActiveCampaignApi\Client\AuthenticatedCommonClient;
 use CommerceLeague\ActiveCampaignApi\Client\HttpClient;
 use CommerceLeague\ActiveCampaignApi\Client\CommonResourceClient;
@@ -29,6 +31,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 class ClientBuilder
 {
+
     /**
      * @var null|ClientInterface
      */
@@ -58,6 +61,7 @@ class ClientBuilder
 
     /**
      * @param ClientInterface $httpClient
+     *
      * @return ClientBuilder
      */
     public function setHttpClient(ClientInterface $httpClient): self
@@ -80,6 +84,7 @@ class ClientBuilder
 
     /**
      * @param RequestFactoryInterface $requestFactory
+     *
      * @return ClientBuilder
      */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
@@ -102,6 +107,7 @@ class ClientBuilder
 
     /**
      * @param StreamFactoryInterface $streamFactory
+     *
      * @return ClientBuilder
      */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
@@ -113,6 +119,7 @@ class ClientBuilder
     /**
      * @param string $baseUri
      * @param string $token
+     *
      * @return CommonClient
      */
     public function buildCommonClient(string $baseUri, string $token): CommonClient
@@ -126,27 +133,30 @@ class ClientBuilder
             new ContactApi($resourceClient, $pageFactory, $cursorFactory),
             new CustomerApi($resourceClient, $pageFactory, $cursorFactory),
             new DealApi($resourceClient, $pageFactory, $cursorFactory),
-            new OrderApi($resourceClient, $pageFactory, $cursorFactory)
+            new OrderApi($resourceClient, $pageFactory, $cursorFactory),
+            new TagsApi($resourceClient, $pageFactory, $cursorFactory),
+            new ListsApi($resourceClient, $pageFactory, $cursorFactory)
         );
     }
 
     /**
      * @param CommonConfiguration $configuration
+     *
      * @return array
      */
     private function setUpCommonClient(CommonConfiguration $configuration): array
     {
         $uriGenerator = new UriGenerator($configuration->getBaseUri());
-        $httpClient = new HttpClient(
+        $httpClient   = new HttpClient(
             $this->getHttpClient(),
             $this->getRequestFactory(),
             $this->getStreamFactory()
         );
 
         $authenticatedHttpClient = new AuthenticatedCommonClient($configuration, $httpClient);
-        $resourceClient = new CommonResourceClient($authenticatedHttpClient, $uriGenerator);
-        $pageFactory = new PageFactory($authenticatedHttpClient);
-        $cursorFactory = new ResourceCursorFactory();
+        $resourceClient          = new CommonResourceClient($authenticatedHttpClient, $uriGenerator);
+        $pageFactory             = new PageFactory($authenticatedHttpClient);
+        $cursorFactory           = new ResourceCursorFactory();
 
         return [$resourceClient, $pageFactory, $cursorFactory];
     }

@@ -10,13 +10,16 @@ use CommerceLeague\ActiveCampaignApi\Api\ConnectionApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\ContactApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\CustomerApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\DealApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\ListsApiResourceInterface;
 use CommerceLeague\ActiveCampaignApi\Api\OrderApiResourceInterface;
+use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 
 /**
  * Class CommonClient
  */
 class CommonClient implements CommonClientInterface
 {
+
     /**
      * @var AbandonedCartApiResourceInterface
      */
@@ -48,12 +51,22 @@ class CommonClient implements CommonClientInterface
     private $orderApi;
 
     /**
+     * @var TagsApiResourceInterface
+     */
+    private $tagsApi;
+
+    /**
+     * @var ListsApiResourceInterface
+     */
+    private $listsApi;
+
+    /**
      * @param AbandonedCartApiResourceInterface $abandonedCartApi
-     * @param ConnectionApiResourceInterface $connectionApi
-     * @param ContactApiResourceInterface $contactApi
-     * @param CustomerApiResourceInterface $customerApi
-     * @param DealApiResourceInterface $dealApi
-     * @param OrderApiResourceInterface $orderApi
+     * @param ConnectionApiResourceInterface    $connectionApi
+     * @param ContactApiResourceInterface       $contactApi
+     * @param CustomerApiResourceInterface      $customerApi
+     * @param DealApiResourceInterface          $dealApi
+     * @param OrderApiResourceInterface         $orderApi
      */
     public function __construct(
         AbandonedCartApiResourceInterface $abandonedCartApi,
@@ -61,14 +74,26 @@ class CommonClient implements CommonClientInterface
         ContactApiResourceInterface $contactApi,
         CustomerApiResourceInterface $customerApi,
         DealApiResourceInterface $dealApi,
-        OrderApiResourceInterface $orderApi
+        OrderApiResourceInterface $orderApi,
+        TagsApiResourceInterface $tagsApi,
+        ListsApiResourceInterface $listsApi
     ) {
         $this->abandonedCartApi = $abandonedCartApi;
-        $this->connectionApi = $connectionApi;
-        $this->contactApi = $contactApi;
-        $this->customerApi = $customerApi;
-        $this->dealApi = $dealApi;
-        $this->orderApi = $orderApi;
+        $this->connectionApi    = $connectionApi;
+        $this->contactApi       = $contactApi;
+        $this->customerApi      = $customerApi;
+        $this->dealApi          = $dealApi;
+        $this->orderApi         = $orderApi;
+        $this->tagsApi          = $tagsApi;
+        $this->listsApi         = $listsApi;
+    }
+
+    /**
+     * @return ListsApiResourceInterface
+     */
+    public function getListsApi(): ListsApiResourceInterface
+    {
+        return $this->listsApi;
     }
 
     /**
@@ -117,5 +142,13 @@ class CommonClient implements CommonClientInterface
     public function getOrderApi(): OrderApiResourceInterface
     {
         return $this->orderApi;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTagsApi(): TagsApiResourceInterface
+    {
+        return $this->tagsApi;
     }
 }

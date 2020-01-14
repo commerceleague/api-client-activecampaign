@@ -1,0 +1,12 @@
+credentials:
+  url: '[SET_YOUR_URL_HERE]'
+  token: '[SET_YOUR_TOKEN_HERE]'
+tests:
+  functional:
+    api:
+      tags:
+        testListTagsBySearchterm:
+          searchTerm: '[SET_VALUE_HERE]'
+      lists:
+        testListListsBySearchterm:
+          searchTerm: '[SET_VALUE_HERE]'
