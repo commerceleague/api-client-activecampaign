@@ -151,4 +151,5 @@ class CommonClient implements CommonClientInterface
     {
         return $this->tagsApi;
     }
+
 }
