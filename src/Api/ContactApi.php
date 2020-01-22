@@ -121,7 +121,7 @@ class ContactApi implements ContactApiResourceInterface
      */
     public function updateListStatus(array $data): array
     {
-        return $this->resourceClient->createResource('api/3/contactList', [], $data);
+        return $this->resourceClient->createResource('api/3/contactLists', [], $data);
     }
 
     /**
