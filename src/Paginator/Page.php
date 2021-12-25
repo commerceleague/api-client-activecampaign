@@ -46,7 +46,7 @@ class Page implements PageInterface
     /**
      * @var array
      */
-    private $items;
+    private $items = [];
 
     /**
      * @param PageFactoryInterface $pageFactory
