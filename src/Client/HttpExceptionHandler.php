@@ -37,7 +37,7 @@ class HttpExceptionHandler
             throw new BadRequestHttpException($response->getReasonPhrase(), $request, $response);
         }
 
-        if ($response->getStatusCode() === 401) {
+        if ($response->getStatusCode() === 403) {
             throw new UnauthorizedHttpException($response->getReasonPhrase(), $request, $response);
         }
 
