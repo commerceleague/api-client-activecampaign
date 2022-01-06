@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi\Client;
 
+use CommerceLeague\ActiveCampaignApi\Exception\NotFoundHttpException;
+use Http\Client\Exception\TransferException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -16,6 +18,7 @@ use Psr\Http\Message\StreamInterface;
  */
 class HttpClient implements HttpClientInterface
 {
+
     /**
      * @var ClientInterface
      */
@@ -71,7 +74,11 @@ class HttpClient implements HttpClientInterface
             $request = $request->withHeader($header, $content);
         }
 
-        $response = $this->baseHttpClient->sendRequest($request);
+        try {
+            $response = $this->baseHttpClient->sendRequest($request);
+        } catch (TransferException $exception) {
+            throw new NotFoundHttpException($exception->getMessage(), $request, new \GuzzleHttp\Psr7\Response());
+        }
         $response = $this->httpExceptionHandler->transformResponseToException($request, $response);
 
         return $response;
