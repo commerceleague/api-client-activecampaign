@@ -11,7 +11,7 @@ use CommerceLeague\ActiveCampaignApi\ClientBuilder;
 use CommerceLeague\ActiveCampaignApi\CommonClient;
 use CommerceLeague\ActiveCampaignApi\tests\functional\Config\Loader\YamlConfigLoader;
 use CommerceLeague\ActiveCampaignApi\tests\functional\Config\Model\Config;
-use Http\Adapter\Guzzle6\Client as GuzzleClient;
+use Http\Adapter\Guzzle7\Client as GuzzleClient;
 use Http\Factory\Guzzle\RequestFactory as GuzzleRequestFactory;
 use Http\Factory\Guzzle\StreamFactory as GuzzleStreamFactory;
 use PHPUnit\Framework\TestCase;
