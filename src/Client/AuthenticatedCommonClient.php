@@ -12,26 +12,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class AuthenticatedCommonClient implements HttpClientInterface
 {
-    /**
-     * @var CommonConfiguration
-     */
-    private $configuration;
-
-    /**
-     * @var HttpClientInterface
-     */
-    private $client;
-
-    /**
-     * @param CommonConfiguration $configuration
-     * @param HttpClientInterface $client
-     */
-    public function __construct(
-        CommonConfiguration $configuration,
-        HttpClientInterface $client
-    ) {
-        $this->configuration = $configuration;
-        $this->client = $client;
+    public function __construct(private readonly CommonConfiguration $configuration, private readonly HttpClientInterface $client)
+    {
     }
 
     /**

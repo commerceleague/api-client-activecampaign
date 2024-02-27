@@ -17,34 +17,8 @@ use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorInterface;
 class ContactApi implements ContactApiResourceInterface
 {
 
-    /**
-     * @var CommonResourceClientInterface
-     */
-    private $resourceClient;
-
-    /**
-     * @var PageFactoryInterface
-     */
-    private $pageFactory;
-
-    /**
-     * @var ResourceCursorFactoryInterface
-     */
-    private $cursorFactory;
-
-    /**
-     * @param CommonResourceClientInterface  $resourceClient
-     * @param PageFactoryInterface           $pageFactory
-     * @param ResourceCursorFactoryInterface $cursorFactory
-     */
-    public function __construct(
-        CommonResourceClientInterface $resourceClient,
-        PageFactoryInterface $pageFactory,
-        ResourceCursorFactoryInterface $cursorFactory
-    ) {
-        $this->resourceClient = $resourceClient;
-        $this->pageFactory    = $pageFactory;
-        $this->cursorFactory  = $cursorFactory;
+    public function __construct(private readonly CommonResourceClientInterface $resourceClient, private readonly PageFactoryInterface $pageFactory, private readonly ResourceCursorFactoryInterface $cursorFactory)
+    {
     }
 
     /**
@@ -115,7 +89,6 @@ class ContactApi implements ContactApiResourceInterface
     /**
      * Update list status for a contact
      *
-     * @param array $data
      *
      * @return array
      */
@@ -127,7 +100,6 @@ class ContactApi implements ContactApiResourceInterface
     /**
      * Add a Tag to a contact
      *
-     * @param array $data
      *
      * @return array
      */

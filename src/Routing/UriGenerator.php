@@ -17,9 +17,6 @@ class UriGenerator implements UriGeneratorInterface
      */
     private $baseUri;
 
-    /**
-     * @param string $baseUri
-     */
     public function __construct(string $baseUri)
     {
         $this->baseUri = rtrim($baseUri, '/');
@@ -47,7 +44,6 @@ class UriGenerator implements UriGeneratorInterface
     }
 
     /**
-     * @param array $uriParameters
      * @return array
      */
     private function encodeUriParameters(array $uriParameters): array

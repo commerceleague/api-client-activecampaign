@@ -24,9 +24,6 @@ class HttpException extends RuntimeException
     protected $response;
 
     /**
-     * @param string $message
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
      * @param \Exception|null $previous
      */
     public function __construct(

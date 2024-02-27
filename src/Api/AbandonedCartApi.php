@@ -14,18 +14,8 @@ class AbandonedCartApi implements AbandonedCartApiResourceInterface
 {
     protected const ABANDONED_CARTS_URI = 'api/3/ecomOrders';
 
-
-    /**
-     * @var CommonResourceClientInterface
-     */
-    private $resourceClient;
-
-    /**
-     * @param CommonResourceClientInterface $resourceClient
-     */
-    public function __construct(CommonResourceClientInterface $resourceClient)
+    public function __construct(private readonly CommonResourceClientInterface $resourceClient)
     {
-        $this->resourceClient = $resourceClient;
     }
 
     /**

@@ -12,8 +12,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface UpdatableResourceInterface
 {
     /**
-     * @param int $id
-     * @param array $data
      * @return array
      * @throws HttpException
      */

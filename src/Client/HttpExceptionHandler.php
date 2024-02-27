@@ -21,8 +21,6 @@ use Psr\Http\Message\ResponseInterface;
 class HttpExceptionHandler
 {
     /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
      * @return ResponseInterface
      */
     public function transformResponseToException(

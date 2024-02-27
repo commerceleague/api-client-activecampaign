@@ -13,17 +13,8 @@ use CommerceLeague\ActiveCampaignApi\Client\HttpClientInterface;
  */
 class PageFactory implements PageFactoryInterface
 {
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
-
-    /**
-     * @param HttpClientInterface $httpClient
-     */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(private readonly HttpClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
     }
 
     /**

@@ -14,65 +14,11 @@ use CommerceLeague\ActiveCampaignApi\Client\HttpClientInterface;
 class Page implements PageInterface
 {
     /**
-     * @var PageFactoryInterface
-     */
-    private $pageFactory;
-
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
-
-    /**
-     * @var ListableResourceInterface
-     */
-    private $listableResource;
-
-    /**
-     * @var int
-     */
-    private $totalCount;
-
-    /**
-     * @var int|null
-     */
-    private $limit;
-
-    /**
-     * @var int|null
-     */
-    private $offset;
-
-    /**
-     * @var array
-     */
-    private $items;
-
-    /**
-     * @param PageFactoryInterface $pageFactory
-     * @param HttpClientInterface $httpClient
-     * @param ListableResourceInterface $listableResource
-     * @param int $totalCount
      * @param int|null $limit
      * @param int|null $offset
-     * @param array $items
      */
-    public function __construct(
-        PageFactoryInterface $pageFactory,
-        HttpClientInterface $httpClient,
-        ListableResourceInterface $listableResource,
-        int $totalCount,
-        ?int $limit,
-        ?int $offset,
-        array $items
-    ) {
-        $this->pageFactory = $pageFactory;
-        $this->httpClient = $httpClient;
-        $this->listableResource = $listableResource;
-        $this->totalCount = $totalCount;
-        $this->limit = $limit;
-        $this->offset = $offset;
-        $this->items = $items;
+    public function __construct(private readonly PageFactoryInterface $pageFactory, private readonly HttpClientInterface $httpClient, private readonly ListableResourceInterface $listableResource, private readonly int $totalCount, private readonly ?int $limit, private readonly ?int $offset, private readonly array $items)
+    {
     }
 
     /**
@@ -104,7 +50,6 @@ class Page implements PageInterface
     }
 
     /**
-     * @param int $offset
      * @return PageInterface
      */
     private function getPage(int $offset): PageInterface

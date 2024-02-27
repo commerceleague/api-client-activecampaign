@@ -44,8 +44,6 @@ class Config
     }
 
     /**
-     * @param array $tags
-     *
      * @return Config
      */
     public function setTags(array $tags): Config
@@ -63,8 +61,6 @@ class Config
     }
 
     /**
-     * @param array $lists
-     *
      * @return Config
      */
     public function setLists(array $lists): Config
@@ -82,8 +78,6 @@ class Config
     }
 
     /**
-     * @param string $url
-     *
      * @return Config
      */
     public function setUrl(string $url): Config
@@ -101,8 +95,6 @@ class Config
     }
 
     /**
-     * @param string $token
-     *
      * @return Config
      */
     public function setToken(string $token): Config

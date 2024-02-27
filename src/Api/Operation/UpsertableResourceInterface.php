@@ -12,7 +12,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface UpsertableResourceInterface
 {
     /**
-     * @param array $data
      * @return array
      * @throws HttpException
      */

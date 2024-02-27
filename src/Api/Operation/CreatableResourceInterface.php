@@ -13,7 +13,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\InvalidArgumentException;
 interface CreatableResourceInterface
 {
     /**
-     * @param array $data
      * @return array
      * @throws HttpException
      * @throws InvalidArgumentException

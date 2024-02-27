@@ -12,20 +12,14 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface CommonResourceClientInterface
 {
     /**
-     * @param string $uri
-     * @param array $uriParameters
-     * @param array $queryParameters
      * @return array
      * @throws HttpException
      */
     public function getResource(string $uri, array $uriParameters = [], array $queryParameters = []): array;
 
     /**
-     * @param string $uri
-     * @param array $uriParameters
      * @param int|null $limit
      * @param int|null $offset
-     * @param array $queryParameters
      * @return array
      */
     public function getResources(
@@ -37,18 +31,12 @@ interface CommonResourceClientInterface
     ): array;
 
     /**
-     * @param string $uri
-     * @param array $uriParameters
-     * @param array $body
      * @return array
      * @throws HttpException
      */
     public function createResource(string $uri, array $uriParameters = [], array $body = []): array;
 
     /**
-     * @param string $uri
-     * @param array $uriParameters
-     * @param array $body
      * @return array
      * @throws HttpException
      */
@@ -56,17 +44,12 @@ interface CommonResourceClientInterface
 
 
     /**
-     * @param string $uri
-     * @param array $uriParameters
-     * @param array $body
      * @return array
      * @throws HttpException
      */
     public function upsertResource(string $uri, array $uriParameters = [], array $body = []): array;
 
     /**
-     * @param string $uri
-     * @param array $uriParameters
      * @return bool
      * @throws HttpException
      */

@@ -12,7 +12,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface DeletableResourceInterface
 {
     /**
-     * @param int $id
      * @return bool
      * @throws HttpException
      */

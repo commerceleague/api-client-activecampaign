@@ -19,6 +19,6 @@ class UnprocessableEntityHttpException extends ClientErrorHttpException
         $responseBody->rewind();
         $decodedBody = json_decode($responseBody->getContents(), true);
         $responseBody->rewind();
-        return isset($decodedBody['errors']) ? $decodedBody['errors'] : [];
+        return $decodedBody['errors'] ?? [];
     }
 }

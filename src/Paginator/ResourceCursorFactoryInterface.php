@@ -12,7 +12,6 @@ interface ResourceCursorFactoryInterface
 {
     /**
      * @param int|null $limit
-     * @param PageInterface $firstPage
      * @return ResourceCursorInterface
      */
     public function createCursor(?int $limit, PageInterface $firstPage): ResourceCursorInterface;

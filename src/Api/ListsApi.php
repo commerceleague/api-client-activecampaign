@@ -17,36 +17,10 @@ use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorInterface;
 class ListsApi implements ListsApiResourceInterface
 {
 
-    const URL = 'api/3/lists';
+    public const URL = 'api/3/lists';
 
-    /**
-     * @var CommonResourceClientInterface
-     */
-    private $resourceClient;
-
-    /**
-     * @var PageFactoryInterface
-     */
-    private $pageFactory;
-
-    /**
-     * @var ResourceCursorFactoryInterface
-     */
-    private $cursorFactory;
-
-    /**
-     * @param CommonResourceClientInterface  $resourceClient
-     * @param PageFactoryInterface           $pageFactory
-     * @param ResourceCursorFactoryInterface $cursorFactory
-     */
-    public function __construct(
-        CommonResourceClientInterface $resourceClient,
-        PageFactoryInterface $pageFactory,
-        ResourceCursorFactoryInterface $cursorFactory
-    ) {
-        $this->resourceClient = $resourceClient;
-        $this->pageFactory    = $pageFactory;
-        $this->cursorFactory  = $cursorFactory;
+    public function __construct(private readonly CommonResourceClientInterface $resourceClient, private readonly PageFactoryInterface $pageFactory, private readonly ResourceCursorFactoryInterface $cursorFactory)
+    {
     }
 
     /**

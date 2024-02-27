@@ -31,24 +31,13 @@ class HttpClient implements HttpClientInterface
      */
     protected $httpExceptionHandler;
 
-    /**
-     * @var StreamFactoryInterface
-     */
-    private $streamFactory;
-
-    /**
-     * @param ClientInterface $baseHttpClient
-     * @param RequestFactoryInterface $requestFactory
-     * @param StreamFactoryInterface $streamFactory
-     */
     public function __construct(
         ClientInterface $baseHttpClient,
         RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory
+        private readonly StreamFactoryInterface $streamFactory
     ) {
         $this->baseHttpClient = $baseHttpClient;
         $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
         $this->httpExceptionHandler = new HttpExceptionHandler();
     }
 

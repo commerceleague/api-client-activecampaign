@@ -5,21 +5,13 @@ declare(strict_types=1);
 
 namespace CommerceLeague\ActiveCampaignApi\Paginator;
 
+use ReturnTypeWillChange;
+
 /**
  * Class ResourceCursor
  */
 class ResourceCursor implements ResourceCursorInterface
 {
-    /**
-     * @var int|null
-     */
-    private $limit;
-
-    /**
-     * @var PageInterface
-     */
-    private $currentPage;
-
     /**
      * @var PageInterface
      */
@@ -37,19 +29,16 @@ class ResourceCursor implements ResourceCursorInterface
 
     /**
      * @param int|null $limit
-     * @param PageInterface $firstPage
      */
-    public function __construct(?int $limit, PageInterface $firstPage)
+    public function __construct(private readonly ?int $limit, private PageInterface $currentPage)
     {
-        $this->limit = $limit;
-        $this->currentPage = $firstPage;
-        $this->firstPage = $firstPage;
+        $this->firstPage = $this->currentPage;
     }
 
     /**
      * @inheritDoc
      */
-    public function current()
+    #[ReturnTypeWillChange] public function current()
     {
         return $this->currentPage->getItems()[$this->currentIndex];
     }
@@ -57,7 +46,7 @@ class ResourceCursor implements ResourceCursorInterface
     /**
      * @inheritDoc
      */
-    public function next()
+    #[ReturnTypeWillChange] public function next()
     {
         $this->currentIndex++;
         $this->totalIndex++;
@@ -66,14 +55,17 @@ class ResourceCursor implements ResourceCursorInterface
 
         if (!isset($items[$this->currentIndex]) && $this->currentPage->hasNextPage()) {
             $this->currentIndex = 0;
-            $this->currentPage = $this->currentPage->getNextPage();
+            $nextPage = $this->currentPage->getNextPage();
+            if ($nextPage instanceof PageInterface) {
+                $this->currentPage = $nextPage;
+            }
         }
     }
 
     /**
      * @inheritDoc
      */
-    public function key()
+    #[ReturnTypeWillChange] public function key()
     {
         return $this->totalIndex;
     }
@@ -81,7 +73,7 @@ class ResourceCursor implements ResourceCursorInterface
     /**
      * @inheritDoc
      */
-    public function valid()
+    #[ReturnTypeWillChange] public function valid()
     {
         return isset($this->currentPage->getItems()[$this->currentIndex]);
     }
@@ -89,7 +81,7 @@ class ResourceCursor implements ResourceCursorInterface
     /**
      * @inheritDoc
      */
-    public function rewind()
+    #[ReturnTypeWillChange] public function rewind()
     {
         $this->totalIndex = 0;
         $this->currentIndex = 0;

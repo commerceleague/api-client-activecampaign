@@ -15,9 +15,7 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface HttpClientInterface
 {
     /**
-     * @param string $httpMethod
      * @param string|UriInterface $uri
-     * @param array $headers
      * @param string|StreamInterface|null $body
      * @return ResponseInterface
      */

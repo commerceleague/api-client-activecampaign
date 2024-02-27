@@ -14,16 +14,11 @@ use CommerceLeague\ActiveCampaignApi\Paginator\ResourceCursorInterface;
 interface ListableResourceInterface
 {
     /**
-     * @param int $limit
-     * @param int $offset
-     * @param array $queryParameters
      * @return PageInterface
      */
     public function listPerPage(int $limit = 20, int $offset = 0, array $queryParameters = []): PageInterface;
 
     /**
-     * @param int $limit
-     * @param array $queryParameters
      * @return ResourceCursorInterface
      */
     public function all(int $limit = 20, array $queryParameters = []): ResourceCursorInterface;

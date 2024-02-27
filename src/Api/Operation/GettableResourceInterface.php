@@ -12,7 +12,6 @@ use CommerceLeague\ActiveCampaignApi\Exception\HttpException;
 interface GettableResourceInterface
 {
     /**
-     * @param int $id
      * @return array
      * @throws HttpException
      */

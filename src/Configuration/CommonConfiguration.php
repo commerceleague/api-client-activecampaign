@@ -38,8 +38,6 @@ class CommonConfiguration
     }
 
     /**
-     * @param string $baseUri
-     * @param string $token
      *
      * @return CommonConfiguration
      */

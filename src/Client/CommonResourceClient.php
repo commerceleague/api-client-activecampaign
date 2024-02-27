@@ -12,26 +12,8 @@ use CommerceLeague\ActiveCampaignApi\Routing\UriGeneratorInterface;
  */
 class CommonResourceClient implements CommonResourceClientInterface
 {
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
-
-    /**
-     * @var UriGeneratorInterface
-     */
-    private $uriGenerator;
-
-    /**
-     * @param HttpClientInterface $httpClient
-     * @param UriGeneratorInterface $uriGenerator
-     */
-    public function __construct(
-        HttpClientInterface $httpClient,
-        UriGeneratorInterface $uriGenerator
-    ) {
-        $this->httpClient = $httpClient;
-        $this->uriGenerator = $uriGenerator;
+    public function __construct(private readonly HttpClientInterface $httpClient, private readonly UriGeneratorInterface $uriGenerator)
+    {
     }
 
     /**

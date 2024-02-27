@@ -60,8 +60,6 @@ class ClientBuilder
     }
 
     /**
-     * @param ClientInterface $httpClient
-     *
      * @return ClientBuilder
      */
     public function setHttpClient(ClientInterface $httpClient): self
@@ -83,8 +81,6 @@ class ClientBuilder
     }
 
     /**
-     * @param RequestFactoryInterface $requestFactory
-     *
      * @return ClientBuilder
      */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
@@ -106,8 +102,6 @@ class ClientBuilder
     }
 
     /**
-     * @param StreamFactoryInterface $streamFactory
-     *
      * @return ClientBuilder
      */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
@@ -117,15 +111,13 @@ class ClientBuilder
     }
 
     /**
-     * @param string $baseUri
-     * @param string $token
      *
      * @return CommonClient
      */
     public function buildCommonClient(string $baseUri, string $token): CommonClient
     {
         $configuration = CommonConfiguration::build($baseUri, $token);
-        list($resourceClient, $pageFactory, $cursorFactory) = $this->setUpCommonClient($configuration);
+        [$resourceClient, $pageFactory, $cursorFactory] = $this->setUpCommonClient($configuration);
 
         return new CommonClient(
             new AbandonedCartApi($resourceClient),
@@ -140,8 +132,6 @@ class ClientBuilder
     }
 
     /**
-     * @param CommonConfiguration $configuration
-     *
      * @return array
      */
     private function setUpCommonClient(CommonConfiguration $configuration): array

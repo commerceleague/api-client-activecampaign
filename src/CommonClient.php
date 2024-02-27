@@ -20,72 +20,8 @@ use CommerceLeague\ActiveCampaignApi\Api\TagsApiResourceInterface;
 class CommonClient implements CommonClientInterface
 {
 
-    /**
-     * @var AbandonedCartApiResourceInterface
-     */
-    private $abandonedCartApi;
-
-    /**
-     * @var ConnectionApiResourceInterface
-     */
-    private $connectionApi;
-
-    /**
-     * @var ContactApiResourceInterface
-     */
-    private $contactApi;
-
-    /**
-     * @var CustomerApiResourceInterface
-     */
-    private $customerApi;
-
-    /**
-     * @var DealApiResourceInterface
-     */
-    private $dealApi;
-
-    /**
-     * @var OrderApiResourceInterface
-     */
-    private $orderApi;
-
-    /**
-     * @var TagsApiResourceInterface
-     */
-    private $tagsApi;
-
-    /**
-     * @var ListsApiResourceInterface
-     */
-    private $listsApi;
-
-    /**
-     * @param AbandonedCartApiResourceInterface $abandonedCartApi
-     * @param ConnectionApiResourceInterface    $connectionApi
-     * @param ContactApiResourceInterface       $contactApi
-     * @param CustomerApiResourceInterface      $customerApi
-     * @param DealApiResourceInterface          $dealApi
-     * @param OrderApiResourceInterface         $orderApi
-     */
-    public function __construct(
-        AbandonedCartApiResourceInterface $abandonedCartApi,
-        ConnectionApiResourceInterface $connectionApi,
-        ContactApiResourceInterface $contactApi,
-        CustomerApiResourceInterface $customerApi,
-        DealApiResourceInterface $dealApi,
-        OrderApiResourceInterface $orderApi,
-        TagsApiResourceInterface $tagsApi,
-        ListsApiResourceInterface $listsApi
-    ) {
-        $this->abandonedCartApi = $abandonedCartApi;
-        $this->connectionApi    = $connectionApi;
-        $this->contactApi       = $contactApi;
-        $this->customerApi      = $customerApi;
-        $this->dealApi          = $dealApi;
-        $this->orderApi         = $orderApi;
-        $this->tagsApi          = $tagsApi;
-        $this->listsApi         = $listsApi;
+    public function __construct(private readonly AbandonedCartApiResourceInterface $abandonedCartApi, private readonly ConnectionApiResourceInterface $connectionApi, private readonly ContactApiResourceInterface $contactApi, private readonly CustomerApiResourceInterface $customerApi, private readonly DealApiResourceInterface $dealApi, private readonly OrderApiResourceInterface $orderApi, private readonly TagsApiResourceInterface $tagsApi, private readonly ListsApiResourceInterface $listsApi)
+    {
     }
 
     /**

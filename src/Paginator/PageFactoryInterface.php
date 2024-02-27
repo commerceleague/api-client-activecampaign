@@ -13,9 +13,6 @@ use CommerceLeague\ActiveCampaignApi\Api\Operation\ListableResourceInterface;
 interface PageFactoryInterface
 {
     /**
-     * @param ListableResourceInterface $listableResource
-     * @param array $items
-     * @param array $meta
      * @return PageInterface
      */
     public function createPage(
