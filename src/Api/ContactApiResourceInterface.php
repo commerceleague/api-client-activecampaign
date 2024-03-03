@@ -23,4 +23,7 @@ interface ContactApiResourceInterface extends
     UpsertableResourceInterface,
     DeletableResourceInterface
 {
+    public function updateListStatus(array $data): array;
+
+    public function tagContact(array $data): array;
 }
